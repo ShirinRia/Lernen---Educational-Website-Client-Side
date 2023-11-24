@@ -1,9 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Appbar from "./Shared/Appbar/Appbar";
 
-
-
-
 const Root = () => {
     return (
         <div >
