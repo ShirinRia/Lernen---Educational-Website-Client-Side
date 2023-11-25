@@ -6,6 +6,7 @@ import Signup from "../Layout/Pages/Signup/Signup";
 import Teachonlernen from "../Layout/Pages/Teach_on_Lernen/Teachonlernen";
 import Dashboard from "../Layout/Pages/Dasboard/Dashboard";
 import Userprofile from "../Layout/Pages/Dasboard/Userprofile";
+import Addclass from "../Layout/Pages/Dasboard/Addclass";
 
 const Routes = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const Routes = createBrowserRouter([
             {
                 path: "profile",
                 element: <Userprofile />,
+            },
+            {
+                path: "addclass",
+                element: <Addclass />,
             },
             
            

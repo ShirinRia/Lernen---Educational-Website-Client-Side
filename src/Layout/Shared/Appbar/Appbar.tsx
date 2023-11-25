@@ -16,9 +16,9 @@ import logo from '../../../assets/logo.png'
 import { NavLink } from 'react-router-dom';
 
 const pages =<>
-<li className="font-medium"><NavLink to={'/'}>Home</NavLink></li>
-<li className="font-medium"><NavLink to={'/'}>All Classes</NavLink></li>
-<li className="font-medium"><NavLink to={'/techon'}>Tech on Lernen</NavLink></li>
+<NavLink to={'/'}>Home</NavLink>
+<NavLink to={'/'}>All Classes</NavLink>
+<NavLink to={'/techon'}>Tech on Lernen</NavLink>
 
 {/* {user &&
     <>
@@ -32,11 +32,9 @@ const pages =<>
 // const pages=  ['Home', 'All Classes', 'Tech on Lernen'];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const settings = <>
-<li className="font-medium"><NavLink to={'/'}>Profile</NavLink></li>
-<li className="font-medium"><NavLink to={'/'}>Account</NavLink></li>
-<li className="font-medium"><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
-
-
+<li><NavLink to={'/'}>Profile</NavLink></li>
+<li><NavLink to={'/'}>Account</NavLink></li>
+<li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
 </>;
 
 function ResponsiveAppBar() {
@@ -143,7 +141,7 @@ function ResponsiveAppBar() {
           >
             LERNEN
           </Typography> */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' ,  }, gap:2, ml:5 }}>
             {/* {pages.map((page) => (
               <Button
                 key={page}
@@ -163,7 +161,7 @@ function ResponsiveAppBar() {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: '45px'  }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{

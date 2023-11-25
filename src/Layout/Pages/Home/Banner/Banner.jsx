@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 const Banner = () => {
     const style = {
 
-      
+
         height: '80vh',
         bgcolor: 'background.paper',
         display: 'flex',
@@ -23,9 +23,9 @@ const Banner = () => {
     };
 
     return (
-<Container fullWidth  sx={{border:1}}>
+
         <Box sx={style}>
-            <Box sx={{  textAlign: 'left', width: '33%', ml: 10, p:5,  boxShadow: 5, }}>
+            <Box sx={{ textAlign: 'left', width: '33%', ml: 10, p: 5, boxShadow: 5, }}>
                 <Typography variant="h3" component="h2">
                     The skills you need
                 </Typography>
@@ -35,7 +35,7 @@ const Banner = () => {
             </Box>
 
         </Box>
-        </Container>
+
 
 
     );
