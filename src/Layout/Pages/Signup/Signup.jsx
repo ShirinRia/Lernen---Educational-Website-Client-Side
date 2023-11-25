@@ -28,8 +28,8 @@ const Signup = () => {
 
     const onSubmit = (data) => console.log(data)
     return (
-        <Container sx={{ width: '100vw',  mx: 'auto',  my:16, border: 1 }}>
-            <Box >
+        <Box sx={{ width: '100vw',  mx: 'auto',  my:16, border: 1 }}>
+            <Container maxWidth="lg" >
            
                 <form onSubmit={handleSubmit(onSubmit)}>
                 <Typography className={classes.typo}>Sign up and start learning</Typography>
@@ -88,9 +88,10 @@ const Signup = () => {
                 </form>
                <Divider style={{ padding: "15px 0px",marginBottom:"15px"}}/>
                <Typography className={classes.typo}>Already have an account?<Link to={'/login'}>Log in</Link></Typography> 
-            </Box>
+          
          
         </Container>
+        </Box>
     );
 };
 

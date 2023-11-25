@@ -37,12 +37,14 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar>
+    <AppBar sx={{
+      background:'transparent'
+    }}>
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <img src={logo} alt="logo" height={'80'} />
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="a"
@@ -54,12 +56,12 @@ function ResponsiveAppBar() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'secondary',
               textDecoration: 'none',
             }}
           >
             LERNEN
-          </Typography>
+          </Typography> */}
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -68,7 +70,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color='secondary'
             >
               <MenuIcon />
             </IconButton>
@@ -97,31 +99,33 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
+         
+          {/* <Typography
             variant="h5"
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-              mr: 2,
+             
+             
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'secondary',
               textDecoration: 'none',
+             
             }}
           >
             LERNEN
-          </Typography>
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2,  display: 'block' }}
               >
                 {page}
               </Button>
