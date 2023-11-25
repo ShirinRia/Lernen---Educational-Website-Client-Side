@@ -17,7 +17,7 @@ import { NavLink } from 'react-router-dom';
 
 const pages =<>
 <NavLink to={'/'}>Home</NavLink>
-<NavLink to={'/'}>All Classes</NavLink>
+<NavLink to={'/allclass'}>All Classes</NavLink>
 <NavLink to={'/techon'}>Tech on Lernen</NavLink>
 
 {/* {user &&

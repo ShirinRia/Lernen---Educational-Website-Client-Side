@@ -14,7 +14,6 @@ const Banner = () => {
         bgcolor: 'background.paper',
         display: 'flex',
         justifyItems: 'center',
-
         backgroundSize: "cover",
         alignItems: 'center',
         backgroundImage: `url(${banner})`,

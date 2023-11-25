@@ -7,6 +7,7 @@ import Teachonlernen from "../Layout/Pages/Teach_on_Lernen/Teachonlernen";
 import Dashboard from "../Layout/Pages/Dasboard/Dashboard";
 import Userprofile from "../Layout/Pages/Dasboard/Userprofile";
 import Addclass from "../Layout/Pages/Dasboard/Addclass";
+import Allclasses from "../Layout/Pages/Allclasses/Allclasses";
 
 const Routes = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const Routes = createBrowserRouter([
             {
                 path: "techon",
                 element: <Teachonlernen />,
+            },
+            {
+                path: "allclass",
+                element: <Allclasses />,
             },
            
         ],

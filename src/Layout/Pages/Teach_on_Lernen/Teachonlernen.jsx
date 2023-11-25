@@ -13,6 +13,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useState } from "react";
 import Autocomplete from '@mui/material/Autocomplete';
+import Swal from 'sweetalert2'
+import useAxiossecure from "../../../Hooks/useAxios/useAxiossecure";
+
 const useStyles = makeStyles((theme) => ({
 
     typo: {
@@ -42,9 +45,45 @@ const Teachonlernen = () => {
         register,
         handleSubmit,
         formState: { errors },
+        reset
     } = useForm()
+    const axiosSecure = useAxiossecure()
+    const onSubmit = (data) => {console.log(data)
+    
+        const title = data.title;
+        const name = data.name;
+        
+        const category = data.category;
+        const experience = data.experience
+        const photo=data.photo
+        const newinstructor = { title, name, category, experience, photo }
+        console.log(data)
+        const url = `/newinstructor`;
+        axiosSecure.post(url, newinstructor)
+            .then(function (response) {
+                console.log(response);
+                if (response.data.insertedId) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Thanks for your donation',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    })
+                    reset()
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                Swal.fire({
+                    title: 'Something Went Wrong!',
+                    text: error,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+            });
+    
+    }
 
-    const onSubmit = (data) => console.log(data)
     return (
         <Box sx={{ width: '100vw', mx: 'auto', my: 16, border: 1 }}>
             <Container maxWidth="lg" >
@@ -66,6 +105,7 @@ const Teachonlernen = () => {
                             style={{ padding: "0", marginBottom: "15px", width: "50%" }}
                             label="Full Name"
                             variant="outlined"
+                            {...register("name")}
                         />
                         {/* register your input into the hook by invoking the "register" function */}
                         {/* <input defaultValue="test" {...register("example")} /> */}
@@ -73,13 +113,9 @@ const Teachonlernen = () => {
                             style={{ padding: "0", marginBottom: "15px", width: "50%" }}
                             label="Title"
                             variant="outlined"
+                            {...register("title")}
                         />
                         {/* include validation with required or other standard HTML validation rules */}
-                        <TextField
-                            style={{ padding: "0", marginBottom: "15px", width: "50%" }}
-                            label="Password"
-                            variant="outlined"
-                        />
 
                         {/* errors will return when field validation fails  */}
                         {errors.exampleRequired && <span>This field is required</span>}
@@ -87,6 +123,7 @@ const Teachonlernen = () => {
                             style={{ padding: "0", marginBottom: "15px", width: "50%" }}
                             label="Photo URL"
                             variant="outlined"
+                            {...register("photo")}
                         />
                         {/* <InputLabel >Experience</InputLabel>
                         <Select
@@ -106,22 +143,22 @@ const Teachonlernen = () => {
                             disablePortal
                             id="combo-box-demo"
                             options={options}
-                            style={{ padding: "0", marginBottom: "15px", width: "50%" , }} 
-                            renderInput={(params) => <TextField {...params}  label="Experience"  variant="outlined" />}
+                            style={{ padding: "0", marginBottom: "15px", width: "50%", }}
+                            renderInput={(params) => <TextField {...params} {...register("experience")} label="Experience" variant="outlined" />}
                         />
                         <InputLabel >Category</InputLabel>
                         <Select
-
+                            {...register("category")}
                             value={category}
                             label="category"
                             onChange={handlecatChange}
                             style={{ padding: "0", marginBottom: "15px", width: "50%" }}
                         >
-                            <MenuItem value={10} >web development</MenuItem>
-                            <MenuItem value={20}>Digital marketing,</MenuItem>
-                            <MenuItem value={30}>Graphics Design</MenuItem>
-                            <MenuItem value={40}>Animation</MenuItem>
-                            <MenuItem value={50}>Programming</MenuItem>
+                            <MenuItem value={'web development'} >web development</MenuItem>
+                            <MenuItem value={'Digital marketing'}>Digital marketing</MenuItem>
+                            <MenuItem value={'Graphics Design'}>Graphics Design</MenuItem>
+                            <MenuItem value={'Animation'}>Animation</MenuItem>
+                            <MenuItem value={'Programming'}>Programming</MenuItem>
                         </Select>
                         <button
                             style={{ padding: "15px 0px", marginBottom: "15px", width: "50%", background: "#dd33fa", outline: '0', color: "white" }}
