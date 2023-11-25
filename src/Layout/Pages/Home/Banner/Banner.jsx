@@ -4,12 +4,12 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import Paper from '@mui/material/Paper';
 const Banner = () => {
     const style = {
 
-        width: '100vw',
+      
         height: '80vh',
         bgcolor: 'background.paper',
         display: 'flex',
@@ -23,7 +23,7 @@ const Banner = () => {
     };
 
     return (
-
+<Container fullWidth  sx={{border:1}}>
         <Box sx={style}>
             <Box sx={{  textAlign: 'left', width: '33%', ml: 10, p:5,  boxShadow: 5, }}>
                 <Typography variant="h3" component="h2">
@@ -35,7 +35,7 @@ const Banner = () => {
             </Box>
 
         </Box>
-
+        </Container>
 
 
     );

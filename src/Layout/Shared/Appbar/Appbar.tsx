@@ -13,9 +13,31 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import logo from '../../../assets/logo.png'
+import { NavLink } from 'react-router-dom';
 
-const pages = ['Home', 'All Classes', 'Tech on Lernen'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages =<>
+<li className="font-medium"><NavLink to={'/'}>Home</NavLink></li>
+<li className="font-medium"><NavLink to={'/'}>All Classes</NavLink></li>
+<li className="font-medium"><NavLink to={'/techon'}>Tech on Lernen</NavLink></li>
+
+{/* {user &&
+    <>
+        <li className="font-medium"><NavLink to={'/addfood'}>Add Food</NavLink></li>
+        <li className="font-medium"><NavLink to={'/managefood'}>Manage My Foods</NavLink></li>
+        <li className="font-medium"><NavLink to={'/foodrequest'}>My Food Request</NavLink></li>
+
+
+    </>} */}
+</>
+// const pages=  ['Home', 'All Classes', 'Tech on Lernen'];
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = <>
+<li className="font-medium"><NavLink to={'/'}>Profile</NavLink></li>
+<li className="font-medium"><NavLink to={'/'}>Account</NavLink></li>
+<li className="font-medium"><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
+
+
+</>;
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -92,11 +114,12 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {/* {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
+              {pages}
             </Menu>
           </Box>
          
@@ -121,7 +144,7 @@ function ResponsiveAppBar() {
             LERNEN
           </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {/* {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
@@ -129,7 +152,8 @@ function ResponsiveAppBar() {
               >
                 {page}
               </Button>
-            ))}
+            ))} */}
+            {pages}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -154,11 +178,12 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {/* {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
+              {settings}
             </Menu>
           </Box>
         </Toolbar>
