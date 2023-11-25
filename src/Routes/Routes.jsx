@@ -8,6 +8,9 @@ import Dashboard from "../Layout/Pages/Dasboard/Dashboard";
 import Userprofile from "../Layout/Pages/Dasboard/Userprofile";
 import Addclass from "../Layout/Pages/Dasboard/Addclass";
 import Allclasses from "../Layout/Pages/Allclasses/Allclasses";
+import Adminallclasses from "../Layout/Pages/Dasboard/Adminallclass/Adminallclass";
+import Allusers from "../Layout/Pages/Dasboard/Allusers/Allusers";
+import Teacherrequest from "../Layout/Pages/Dasboard/TeacherRequest/Teacherrequest";
 
 const Routes = createBrowserRouter([
     {
@@ -52,7 +55,18 @@ const Routes = createBrowserRouter([
                 path: "addclass",
                 element: <Addclass />,
             },
-            
+            {
+                path: "allclass",
+                element: <Adminallclasses />,
+            },
+            {
+                path: "users",
+                element: <Allusers />,
+            },
+            {
+                path: "instructors",
+                element: <Teacherrequest />,
+            },
            
         ],
         // errorElement: <Errorpage></Errorpage>,

@@ -7,17 +7,10 @@ import Box from '@mui/material/Box';
 const Dashboard = () => {
     // const [cart] = useCart();
     // const [isAdmin] = useAdmin()
-    const isAdmin = false
+    const isAdmin = true
     const isStudent = false
 
-    const style = {
-
-
-
-
-
-
-    };
+   
     return (
         <Container sx={{ display: 'flex', width: '100vw' }}>
             {/* dashboard side bar */}
@@ -25,15 +18,15 @@ const Dashboard = () => {
                 <ul className="menu p-4">
                     {
                         isAdmin ? <>
-                            <NavLink >
+                            <NavLink to={'/dashboard/instructors'}>
                                 {/* <FaHome></FaHome> */}
                                 <p style={{ color: 'white' }}>Teacher Request</p>
                             </NavLink>
-                            <NavLink >
+                            <NavLink to={'/dashboard/users'}>
                                 {/* <FaHome></FaHome> */}
                                 <p style={{ color: 'white' }}>Users</p>
                             </NavLink>
-                            <NavLink to={'/dashboard/profile'}>
+                            <NavLink to={'/dashboard/allclass'}>
                                 {/* <FaHome></FaHome> */}
                                 <p style={{ color: 'white' }}>All classes</p>
                             </NavLink>
