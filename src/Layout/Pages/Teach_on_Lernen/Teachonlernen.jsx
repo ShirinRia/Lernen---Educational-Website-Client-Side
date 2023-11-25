@@ -12,6 +12,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useState } from "react";
+import Autocomplete from '@mui/material/Autocomplete';
 const useStyles = makeStyles((theme) => ({
 
     typo: {
@@ -22,6 +23,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 const Teachonlernen = () => {
+    const options = [
+        { label: 'Beginner' },
+        { label: 'Experienced' },
+        { label: 'SomeIdea' }
+
+    ];
     const [experience, setexperience] = useState('');
     const [category, setcategory] = useState('');
     const handleexpChange = (event) => {
@@ -81,7 +88,7 @@ const Teachonlernen = () => {
                             label="Photo URL"
                             variant="outlined"
                         />
-                        <InputLabel >Experience</InputLabel>
+                        {/* <InputLabel >Experience</InputLabel>
                         <Select
                            
                             
@@ -93,18 +100,28 @@ const Teachonlernen = () => {
                             <MenuItem value={10}>Beginner</MenuItem>
                             <MenuItem value={20}>Experienced</MenuItem>
                             <MenuItem value={30}>Some idea</MenuItem>
-                        </Select>
+                        </Select> */}
+
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={options}
+                            style={{ padding: "0", marginBottom: "15px", width: "50%" , }} 
+                            renderInput={(params) => <TextField {...params}  label="Experience"  variant="outlined" />}
+                        />
                         <InputLabel >Category</InputLabel>
                         <Select
-                           
+
                             value={category}
                             label="category"
                             onChange={handlecatChange}
                             style={{ padding: "0", marginBottom: "15px", width: "50%" }}
                         >
-                            <MenuItem value={10} >Beginner</MenuItem>
-                            <MenuItem value={20}>Experienced</MenuItem>
-                            <MenuItem value={30}>Some idea</MenuItem>
+                            <MenuItem value={10} >web development</MenuItem>
+                            <MenuItem value={20}>Digital marketing,</MenuItem>
+                            <MenuItem value={30}>Graphics Design</MenuItem>
+                            <MenuItem value={40}>Animation</MenuItem>
+                            <MenuItem value={50}>Programming</MenuItem>
                         </Select>
                         <button
                             style={{ padding: "15px 0px", marginBottom: "15px", width: "50%", background: "#dd33fa", outline: '0', color: "white" }}
@@ -117,7 +134,7 @@ const Teachonlernen = () => {
                     </Box>
 
                 </form>
-                
+
             </Container>
         </Box>
     );

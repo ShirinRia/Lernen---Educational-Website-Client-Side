@@ -5,7 +5,8 @@ import Login from "../Layout/Pages/Login/Login";
 import Signup from "../Layout/Pages/Signup/Signup";
 import Teachonlernen from "../Layout/Pages/Teach_on_Lernen/Teachonlernen";
 import Dashboard from "../Layout/Pages/Dasboard/Dashboard";
-import Header from "../Layout/Pages/Home/Banner/Header";
+import Userprofile from "../Layout/Pages/Dasboard/Userprofile";
+
 const Routes = createBrowserRouter([
     {
         path: "/",
@@ -24,10 +25,7 @@ const Routes = createBrowserRouter([
                 path: "signup",
                 element: <Signup />,
             },
-            {
-                path: "header",
-                element: <Header />,
-            },
+            
             {
                 path: "techon",
                 element: <Teachonlernen />,
@@ -39,6 +37,14 @@ const Routes = createBrowserRouter([
     {
         path: "dashboard",
         element: <Dashboard />,
+        children: [
+            {
+                path: "profile",
+                element: <Userprofile />,
+            },
+            
+           
+        ],
         // errorElement: <Errorpage></Errorpage>,
        
         
