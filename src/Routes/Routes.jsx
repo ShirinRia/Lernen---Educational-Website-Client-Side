@@ -14,6 +14,7 @@ import Teacherrequest from "../Layout/Pages/Dasboard/TeacherRequest/Teacherreque
 import Classdetails from "../Layout/Pages/Allclasses/Classdetails/Classdetails";
 import Myenroll from "../Layout/Pages/Dasboard/Student/Myenroll";
 import Payment from "../Layout/Pages/Payment/Payment";
+import Myclass from "../Layout/Pages/Dasboard/Teacher/Myclass";
 
 const Routes = createBrowserRouter([
     {
@@ -81,9 +82,15 @@ const Routes = createBrowserRouter([
                 element: <Teacherrequest />,
             },
             {
-                path: "enroll/:id",
+                path: "enroll",
                 element: <Myenroll />,
-                loader: ({ params }) => fetch(`http://localhost:5000/enrolledclass/${params.id}`)
+                // loader: ({ params }) => fetch(`http://localhost:5000/enrolledclass/${params.id}`)
+            },
+           
+            {
+                path: "myclass",
+                element: <Myclass />,
+                
             },
            
         ],

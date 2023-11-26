@@ -10,7 +10,7 @@ const Dashboard = () => {
     // const [isAdmin] = useAdmin()
     const {user}=useAuth()
     const isAdmin = false
-    const isStudent = true
+    const isStudent = false
 
    
     return (
@@ -47,7 +47,7 @@ const Dashboard = () => {
                                             {/* <FaHome></FaHome> */}
                                             <p style={{ color: 'white' }}>Home</p>
                                         </NavLink>
-                                        <NavLink to={`/dashboard/enroll/${user._id}`}>
+                                        <NavLink to={`/dashboard/enroll/`}>
                                             {/* <FaHome></FaHome> */}
                                             <p style={{ color: 'white' }}>My enroll class</p>
                                         </NavLink>
@@ -64,7 +64,7 @@ const Dashboard = () => {
                                             {/* <FaHome></FaHome> */}
                                             <p style={{ color: 'white' }}>Add Class</p>
                                         </NavLink>
-                                        <NavLink >
+                                        <NavLink to={'/dashboard/myclass'}>
                                             {/* <FaHome></FaHome> */}
                                             <p style={{ color: 'white' }}>My Class</p>
                                         </NavLink>

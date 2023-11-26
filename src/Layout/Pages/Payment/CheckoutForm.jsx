@@ -17,7 +17,7 @@ const CheckoutForm = ({ specclass }) => {
     const elements = useElements();
     const axiosSecure = useAxiossecure();
     const { user } = useAuth();
-    // const [cart, refetch] = useCart();
+    
     const navigate = useNavigate();
     const {
         register,

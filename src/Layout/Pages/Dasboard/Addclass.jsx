@@ -4,7 +4,6 @@ import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import TextField from "@material-ui/core/TextField";
 import { palette } from '@mui/system';
-import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import { createTheme } from '@mui/material/styles';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
