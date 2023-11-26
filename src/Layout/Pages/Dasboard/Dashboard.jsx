@@ -2,13 +2,15 @@
 import { Container, Divider } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import Box from '@mui/material/Box';
+import useAuth from "../../../Hooks/useAuth";
 
 
 const Dashboard = () => {
     // const [cart] = useCart();
     // const [isAdmin] = useAdmin()
-    const isAdmin = true
-    const isStudent = false
+    const {user}=useAuth()
+    const isAdmin = false
+    const isStudent = true
 
    
     return (
@@ -45,7 +47,7 @@ const Dashboard = () => {
                                             {/* <FaHome></FaHome> */}
                                             <p style={{ color: 'white' }}>Home</p>
                                         </NavLink>
-                                        <NavLink >
+                                        <NavLink to={`/dashboard/enroll/${user._id}`}>
                                             {/* <FaHome></FaHome> */}
                                             <p style={{ color: 'white' }}>My enroll class</p>
                                         </NavLink>
