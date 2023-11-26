@@ -15,6 +15,7 @@ import { useState } from "react";
 import Autocomplete from '@mui/material/Autocomplete';
 import Swal from 'sweetalert2'
 import useAxiossecure from "../../../Hooks/useAxios/useAxiossecure";
+import { FormControl } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -48,14 +49,15 @@ const Teachonlernen = () => {
         reset
     } = useForm()
     const axiosSecure = useAxiossecure()
-    const onSubmit = (data) => {console.log(data)
-    
+    const onSubmit = (data) => {
+        console.log(data)
+
         const title = data.title;
         const name = data.name;
-        
+
         const category = data.category;
         const experience = data.experience
-        const photo=data.photo
+        const photo = data.photo
         const newinstructor = { title, name, category, experience, photo }
         console.log(data)
         const url = `/newinstructor`;
@@ -81,7 +83,7 @@ const Teachonlernen = () => {
                     confirmButtonText: 'OK'
                 })
             });
-    
+
     }
 
     return (
@@ -146,8 +148,8 @@ const Teachonlernen = () => {
                             style={{ padding: "0", marginBottom: "15px", width: "50%", }}
                             renderInput={(params) => <TextField {...params} {...register("experience")} label="Experience" variant="outlined" />}
                         />
-                        <InputLabel >Category</InputLabel>
-                        <Select
+                        {/* <InputLabel >Category</InputLabel> */}
+                        {/* <Select
                             {...register("category")}
                             value={category}
                             label="category"
@@ -159,7 +161,25 @@ const Teachonlernen = () => {
                             <MenuItem value={'Graphics Design'}>Graphics Design</MenuItem>
                             <MenuItem value={'Animation'}>Animation</MenuItem>
                             <MenuItem value={'Programming'}>Programming</MenuItem>
-                        </Select>
+                        </Select> */}
+                        <FormControl style={{ padding: "0", marginBottom: "15px", width: "50%" }}>
+                            <InputLabel id="demo-simple-select-label">category</InputLabel>
+                            <Select fullWidth
+                                {...register("category")}
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={category}
+                                label="category"
+                                onChange={handlecatChange}
+                                
+                            >
+                                <MenuItem value={'web development'} >web development</MenuItem>
+                                <MenuItem value={'Digital marketing'}>Digital marketing</MenuItem>
+                                <MenuItem value={'Graphics Design'}>Graphics Design</MenuItem>
+                                <MenuItem value={'Animation'}>Animation</MenuItem>
+                                <MenuItem value={'Programming'}>Programming</MenuItem>
+                            </Select>
+                        </FormControl>
                         <button
                             style={{ padding: "15px 0px", marginBottom: "15px", width: "50%", background: "#dd33fa", outline: '0', color: "white" }}
 

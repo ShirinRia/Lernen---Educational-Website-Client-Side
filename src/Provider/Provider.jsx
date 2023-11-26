@@ -9,9 +9,11 @@ const googleprovider = new GoogleAuthProvider();
 const auth = getAuth(app)
 const Provider = ({ children }) => {
     const [user, setuser] = useState(null)
+   
     const [loading, setloading] = useState(true)
     // const [theme, settheme] = useState(false)
 
+   
     const createuser = (email, password) => {
         setloading(true)
         return createUserWithEmailAndPassword(auth, email, password)
@@ -50,7 +52,7 @@ const Provider = ({ children }) => {
             }
             else {
                 axios.post('https://surplus-server.vercel.app/logout', loggedinuser, { withCredentials: true },
-                   
+
                 )
                     .then(res => {
                         console.log(res.data);

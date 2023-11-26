@@ -52,7 +52,8 @@ const Userprofile = () => {
                 variant="outlined"
             />
 
-        </Box></Box>
+        </Box>
+        </Box>
 
 
 
