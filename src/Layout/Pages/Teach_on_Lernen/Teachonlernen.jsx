@@ -54,11 +54,11 @@ const Teachonlernen = () => {
 
         const title = data.title;
         const name = data.name;
-
+        const status = 'Pending'
         const category = data.category;
         const experience = data.experience
         const photo = data.photo
-        const newinstructor = { title, name, category, experience, photo }
+        const newinstructor = { title, name, category, experience, status, photo }
         console.log(data)
         const url = `/newinstructor`;
         axiosSecure.post(url, newinstructor)
@@ -171,7 +171,7 @@ const Teachonlernen = () => {
                                 value={category}
                                 label="category"
                                 onChange={handlecatChange}
-                                
+
                             >
                                 <MenuItem value={'web development'} >web development</MenuItem>
                                 <MenuItem value={'Digital marketing'}>Digital marketing</MenuItem>

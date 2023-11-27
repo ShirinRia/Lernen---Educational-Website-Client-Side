@@ -9,8 +9,8 @@ const Dashboard = () => {
     // const [cart] = useCart();
     // const [isAdmin] = useAdmin()
     const {user}=useAuth()
-    const isAdmin = false
-    const isStudent = true
+    const isAdmin = true
+    const isStudent = false
 
    
     return (

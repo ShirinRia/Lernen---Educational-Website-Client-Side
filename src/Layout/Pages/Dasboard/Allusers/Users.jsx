@@ -3,15 +3,23 @@ import Box from '@mui/material/Box';
 // import { DataGridPro } from '@mui/x-data-grid-pro';
 
 const Users = ({ users }) => {
-    
+    console.log(users)
     const columns = [
         // { field: 'id', headerName: 'ID', width: 90 },
+        {
+          field: 'photo',
+          headerName: 'Image',
+          width: 150,
+          editable: true,
+          renderCell: (params) => <img src={params.value} style={{ width: '100%', height: '100%' }} />, // renderCell will render the component
+        },
         {
           field: 'name',
           headerName: 'Name',
           width: 150,
           editable: true,
         },
+       
         
         {
           field: 'email',

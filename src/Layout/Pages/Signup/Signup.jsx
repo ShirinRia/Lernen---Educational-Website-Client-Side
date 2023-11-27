@@ -44,7 +44,8 @@ const Signup = () => {
             const name = data.name
             const email = data.email
             const photo = data.photo
-            const newuserdata = { name, email, photo, createdAt: createat }
+            const role = 'Student'
+            const newuserdata = { name, email, photo, createdAt: createat,role }
             console.log(newuserdata);
             // update
             updateProfile(currentuser, {

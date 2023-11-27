@@ -88,7 +88,7 @@ const style = {
     p: 4,
 };
 const Teacherclassdetails = () => {
-    const {id}=useParams()
+    const { id } = useParams()
     const classes = useStyles();
     const {
         register,
@@ -104,11 +104,11 @@ const Teacherclassdetails = () => {
 
         console.log(data)
         const title = data.title;
-       const courseid=id
+        const courseid = id
         const description = data.description;
         const date = data.date
 
-        const newassignment = { courseid,title, date, description }
+        const newassignment = { courseid, title, date, description }
         console.log(newassignment)
         const url = `/createassignment`;
         axiosSecure.post(url, newassignment)
@@ -172,8 +172,8 @@ const Teacherclassdetails = () => {
                                 style={{ padding: "0", marginBottom: "15px", width: "100%" }}
                                 // label="Deadline"
                                 variant="outlined"
-                                type='date' 
-                            //    onFocus={(this.type='date')}
+                                type='date'
+                                //    onFocus={(this.type='date')}
                                 // onfocus="(this.type='date')"
                                 {...register("date")}
                             />
