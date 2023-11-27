@@ -106,8 +106,8 @@ const Classcard = ({ classe, refetch }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const { _id, title, name, email, price, description, photo } = classe
-    const isteacher = true
-    const isstudent = false
+    const isteacher = false
+    const isstudent = true
     const axiosSecure = useAxiossecure();
     const handleDelete = () => {
         Swal.fire({
@@ -146,29 +146,29 @@ const Classcard = ({ classe, refetch }) => {
         console.log(newclass)
         const url = `/updatecourse/${_id}`;
         axiosSecure.put(url, newclass)
-        .then(function (response) {
-            console.log(response);
-            if (response.data.modifiedCount > 0) {
-              
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Product Updated Successfully',
-                    icon: 'success',
-                    confirmButtonText: 'Thank You'
-                })
-                refetch()
-                reset()
-            }
-            else {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Update FAILED',
-                    icon: 'error',
-                    confirmButtonText: 'Cool'
-                })
-            }
-        })
-        .catch(function (error) {
+            .then(function (response) {
+                console.log(response);
+                if (response.data.modifiedCount > 0) {
+
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Product Updated Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Thank You'
+                    })
+                    refetch()
+                    reset()
+                }
+                else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Update FAILED',
+                        icon: 'error',
+                        confirmButtonText: 'Cool'
+                    })
+                }
+            })
+            .catch(function (error) {
                 console.log(error);
                 Swal.fire({
                     title: 'Something Went Wrong!',
@@ -203,19 +203,16 @@ const Classcard = ({ classe, refetch }) => {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-
-
                 {
                     isteacher ? <div>
                         <div>
-
                             <Button onClick={handleOpen} variant="contained" >Update</Button>
                             <Modal
                                 open={open}
                                 onClose={handleClose}
                                 aria-labelledby="modal-modal-title"
                                 aria-describedby="modal-modal-description"
-                                
+
                             >
                                 <Box sx={style}>
                                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -277,15 +274,23 @@ const Classcard = ({ classe, refetch }) => {
                                         </button>
 
 
+
                                     </form>
                                 </Box>
                             </Modal>
+                            <Button
+                                href={`/dashboard/myclass/${_id}`}
+                                variant="contained"
+
+                                type="submit">
+                                See details
+                            </Button>
                         </div>
 
                         <Button onClick={handleDelete} variant="contained" >Delete</Button></div>
                         : <div>
                             {isstudent ?
-                                <Button variant="contained" href={`/details/${_id}`}>Continue</Button>
+                                <Button variant="contained" href={`/dashboard/myenrollclass/${_id}`}>Continue</Button>
                                 : <Button variant="contained" href={`/details/${_id}`}>Enroll</Button>
                             }
                         </div>

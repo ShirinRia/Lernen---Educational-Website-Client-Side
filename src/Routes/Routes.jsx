@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Root from "../Layout/Root";
 import Home from "../Layout/Pages/Home/Home";
 import Login from "../Layout/Pages/Login/Login";
@@ -15,6 +15,9 @@ import Classdetails from "../Layout/Pages/Allclasses/Classdetails/Classdetails";
 import Myenroll from "../Layout/Pages/Dasboard/Student/Myenroll";
 import Payment from "../Layout/Pages/Payment/Payment";
 import Myclass from "../Layout/Pages/Dasboard/Teacher/Myclass";
+import Teacherclassdetails from "../Layout/Pages/Dasboard/Teacher/Teacherclassdetails";
+import Myenrollclassdetails from "../Layout/Pages/Dasboard/Student/Myenrollclassdetails";
+
 
 const Routes = createBrowserRouter([
     {
@@ -34,7 +37,7 @@ const Routes = createBrowserRouter([
                 path: "signup",
                 element: <Signup />,
             },
-            
+
             {
                 path: "techon",
                 element: <Teachonlernen />,
@@ -53,9 +56,9 @@ const Routes = createBrowserRouter([
                 element: <Payment />,
                 loader: ({ params }) => fetch(`http://localhost:5000/class/${params.id}`)
             },
-           
+
         ],
-        
+
     },
     {
         path: "dashboard",
@@ -86,17 +89,27 @@ const Routes = createBrowserRouter([
                 element: <Myenroll />,
                 // loader: ({ params }) => fetch(`http://localhost:5000/enrolledclass/${params.id}`)
             },
-           
+            {
+                path: "myenrollclass/:id",
+                element: <Myenrollclassdetails />,
+                loader: ({params }) => fetch(`http://localhost:5000/assignments/${params.id}`)
+            },
+
             {
                 path: "myclass",
                 element: <Myclass />,
-                
+
             },
-           
+            {
+                path: "myclass/:id",
+                element: <Teacherclassdetails/>,
+                loader: ({ params }) => fetch(`http://localhost:5000/myclass/${params.id}`)
+            },
+
         ],
         // errorElement: <Errorpage></Errorpage>,
-       
-        
+
+
     },
 ]);
 

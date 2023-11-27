@@ -1,13 +1,10 @@
 import { useForm } from "react-hook-form"
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Container from '@mui/material/Container';
 import TextField from "@material-ui/core/TextField";
 import { palette } from '@mui/system';
 import { createTheme } from '@mui/material/styles';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import useAxiossecure from "../../../Hooks/useAxios/useAxiossecure";
@@ -78,7 +75,7 @@ const Addclass = () => {
 
     const classes = useStyles();
     const axiosSecure = useAxiossecure()
-    const navigate = useNavigate()
+   
     const {
         register,
         handleSubmit,

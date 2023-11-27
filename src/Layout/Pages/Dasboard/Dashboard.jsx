@@ -10,11 +10,11 @@ const Dashboard = () => {
     // const [isAdmin] = useAdmin()
     const {user}=useAuth()
     const isAdmin = false
-    const isStudent = false
+    const isStudent = true
 
    
     return (
-        <Container sx={{ display: 'flex', width: '100vw' }}>
+        <Container sx={{ display: 'flex'}}>
             {/* dashboard side bar */}
             <Box sx={{ width: '400px', flexGrow: 1, minHeight: '100vh', bgcolor: 'primary.main', color: 'white' }}>
                 <ul className="menu p-4">
