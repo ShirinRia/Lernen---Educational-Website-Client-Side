@@ -92,6 +92,7 @@ const CheckoutForm = ({ specclass }) => {
                     transactionId: paymentIntent.id,
                     date: new Date(), // utc date convert. use moment js to 
                     courseId: specclass._id,
+                    totalenrollment:specclass.totalenrollment+1,
                     // menuItemIds: cart.map(item => item.menuId),
                     status: 'pending'
                 }

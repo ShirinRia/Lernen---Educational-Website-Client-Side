@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import { Button, Container } from "@mui/material";
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useForm } from "react-hook-form"
 import Typography from '@mui/material/Typography';
@@ -106,6 +106,7 @@ const [newRating,setnewrating]=useState()
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const assignments = useLoaderData()
+    const {id}=useParams()
     const columns = [
         // { field: 'id', headerName: 'ID', width: 90 },
         {
@@ -125,7 +126,6 @@ const [newRating,setnewrating]=useState()
         {
             field: 'date',
             headerName: 'Deadline',
-
             width: '110',
             editable: true,
         },
@@ -166,7 +166,8 @@ const [newRating,setnewrating]=useState()
 
         const description = data.description;
         const rating=newRating
-        const feedback = { description, rating }
+        const courseid=id
+        const feedback = { description, rating, courseid}
         console.log(feedback)
 
         const url = `/feedbacks`;

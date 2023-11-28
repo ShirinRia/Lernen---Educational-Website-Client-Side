@@ -95,7 +95,8 @@ const Addclass = () => {
         const price = data.price;
         const description = data.description;
         const photo = data.photo
-        const newclass = { title, name, email, price, description,status, photo }
+        const totalenrollment=0
+        const newclass = { title, name, email, price, description,status, photo,totalenrollment }
         console.log(newclass)
         const url = `/classes`;
         axiosSecure.post(url, newclass)
