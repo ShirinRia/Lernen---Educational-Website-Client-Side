@@ -134,15 +134,32 @@ const [newRating,setnewrating]=useState()
             renderCell: (cellValues) => {
                 console.log(cellValues)
                 return (
-                    <Button variant="contained">Submit</Button>
+                    <Button onClick={()=>handlesubmission(cellValues.row.submissioncount,cellValues.row._id,cellValues.row.courseid)} variant="contained">Submit</Button>
                 )
             }
 
         },
 
-
     ];
     const axiosSecure = useAxiossecure()
+    const handlesubmission=(count,id,cid)=>{
+        const url=`/course/assignment/${id}/${cid}`
+        const newsubmission = {
+           newcount:count+1
+        }
+        axiosSecure.patch(url,newsubmission)
+        .then(response => {
+            console.log(response);
+            if (response.data.modifiedCount > 0) {
+                Swal.fire({
+                    title: 'Submitted!',
+                    // text: 'Sign In Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
+            }
+        })
+    }
     const onSubmit = async (data) => {
 
         console.log(data)
@@ -203,7 +220,6 @@ const [newRating,setnewrating]=useState()
                             // bgcolor: 'green'
                         }}
                         >
-
                             <Textarea style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }} minRows={3} placeholder="Description" variant="outlined"  {...register("description")} />
 
                             {errors.exampleRequired && <span>This field is required</span>}
@@ -216,7 +232,7 @@ const [newRating,setnewrating]=useState()
                             />,
                         </Box>
 
-                        <button onClick={handlesubmission}
+                        <button 
                             style={{ padding: "15px 0px", marginBottom: "15px", width: "100%", fontSize: '24px', background: "#dd33fa", outline: '0', color: "white" }}
 
                             // variant="outlined"
@@ -224,8 +240,6 @@ const [newRating,setnewrating]=useState()
                             type="submit">
                             Send
                         </button>
-
-
 
                     </form>
                 </Box>

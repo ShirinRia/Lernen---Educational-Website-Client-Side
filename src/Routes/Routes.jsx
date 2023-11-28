@@ -28,6 +28,7 @@ const Routes = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />,
+                // loader:() =>fetch('/partnership.json'),
             },
             {
                 path: "login",

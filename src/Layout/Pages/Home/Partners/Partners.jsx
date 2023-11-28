@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
+import { useEffect, useState } from 'react';
 const Partners = () => {
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -18,17 +19,18 @@ const Partners = () => {
         color: theme.palette.text.secondary,
     }));
     const style = {
-
-
         bgcolor: 'secondary.light',
         display: 'flex',
         justifyItems: 'center',
-
         alignItems: 'center',
         justifyContent: 'center',
-
-
     };
+    const [partners,setpartners]=useState([])
+    useEffect(() =>{
+        fetch('/partnership.json')
+        .then(res=>res.json())
+        .then(data=>setpartners(data))
+    },[])
     return (
         <div >
             <Typography textAlign= 'center' >
@@ -38,12 +40,14 @@ const Partners = () => {
 
 
                 <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2}>
-                    <Item>Item 1</Item>
-                    <Item>Item 2</Item>
-                    <Item>Item 3</Item>
-                    <Item>Item 1</Item>
-                    <Item>Item 2</Item>
-                    <Item>Item 3</Item>
+                   {partners.map(partner => <Item key={partner.id}>
+                        <Box sx={{height:'80px'}}>
+                            <img src={partner.logo} alt="" height={'100%'} width={'100%'} />
+                        </Box>
+                        <p>{partner.brief_description}</p>
+                    </Item>)}
+                   
+                   
                 </Stack>
 
 
