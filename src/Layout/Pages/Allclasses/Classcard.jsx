@@ -22,6 +22,9 @@ import { createTheme } from '@mui/material/styles';
 import { makeStyles } from "@material-ui/core/styles";
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import './Classcard.css'
+import useStudent from '../../../Hooks/useStudent';
+import useAdmin from '../../../Hooks/useAdmin';
+import useTeacher from '../../../Hooks/useTeacher';
 const useStyles = makeStyles((theme) => ({
 
     typo: {
@@ -105,9 +108,9 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const { _id, title, name, email, price, description, photo } = classe
-    const isteacher = false
-    const isstudent = true
+    const { _id, title, name, email, price, description, photo,status } = classe
+    const [isteacher] = useTeacher()
+    const [isstudent] = useStudent()
     const axiosSecure = useAxiossecure();
     const handleDelete = () => {
         Swal.fire({
@@ -199,7 +202,7 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
                 alt="Paella dish"
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{textAlign:'justify'}}>
                     {description}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -208,11 +211,16 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
                 <Typography variant="body2"  sx={{fontWeight:700, fontSize:'16px'}}>
                    $ {price}
                 </Typography>
+                <Typography variant="body2"  sx={{fontWeight:400, fontSize:'14px'}}>
+                   {status}
+                </Typography>
             </CardContent>
             <CardActions disableSpacing>
                 {
-                    isteacher & !isallclassnav ? <div>
-                        <div>
+                    isteacher & !isallclassnav ? <Box>
+                        
+                        <Box sx={{display:'flex', gap:1}}>
+                            <div>
                             <Button onClick={handleOpen} variant="contained" >Update</Button>
                             <Modal
                                 open={open}
@@ -237,35 +245,37 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
                                         >
                                             <TextField
                                                 style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                                                label="Title"
+                                               value={title}
                                                 variant="outlined"
+                                               
                                                 {...register("title")}
                                             />
                                             <TextField
                                                 style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                                                label="Your Name"
+                                                value={name}
                                                 variant="outlined"
+                                                disabled
                                                 {...register("name")}
                                             />
 
                                             <TextField
                                                 style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                                                label="Email"
+                                                value={email}
                                                 variant="outlined"
                                                 {...register("email")}
                                             />
                                             <TextField
                                                 style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                                                label="Price"
+                                                value={price}
                                                 variant="outlined"
                                                 {...register("price")}
                                             />
-                                            <Textarea style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }} minRows={3} placeholder="Description" variant="outlined"  {...register("description")} />
+                                            <Textarea style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }} minRows={3} placeholder="Description" value={description} variant="outlined"  {...register("description")} />
 
                                             {errors.exampleRequired && <span>This field is required</span>}
                                             <TextField
                                                 style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }}
-                                                label="Photo URL"
+                                                value={photo}
                                                 variant="outlined"
                                                 {...register("photo")}
                                             />
@@ -285,6 +295,8 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
                                     </form>
                                 </Box>
                             </Modal>
+                            </div>
+                            <Button onClick={handleDelete} variant="contained" >Delete</Button>
                             <Button
                                 href={`/dashboard/myclass/${_id}`}
                                 variant="contained"
@@ -292,9 +304,10 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
                                 type="submit">
                                 See details
                             </Button>
-                        </div>
+                        </Box>
 
-                        <Button onClick={handleDelete} variant="contained" >Delete</Button></div>
+                       
+                        </Box>
                         : <div>
                             {isstudent & !isallclassnav  ?
                                 <Button variant="contained" href={`/dashboard/myenrollclass/${_id}`}>Continue</Button>

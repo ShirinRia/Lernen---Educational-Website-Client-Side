@@ -181,7 +181,7 @@ const [newRating,setnewrating]=useState()
     }
     return (
         <Container>
-            <Button onClick={handleOpen} variant="contained">Teaching Evaluation Report </Button>
+            <Button sx={{mb:4}} onClick={handleOpen} variant="contained">Teaching Evaluation Report </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -216,7 +216,7 @@ const [newRating,setnewrating]=useState()
                             />,
                         </Box>
 
-                        <button
+                        <button onClick={handlesubmission}
                             style={{ padding: "15px 0px", marginBottom: "15px", width: "100%", fontSize: '24px', background: "#dd33fa", outline: '0', color: "white" }}
 
                             // variant="outlined"

@@ -16,7 +16,7 @@ const usePayment = () => {
         return res.data
       },
   });
-  return [payments]
+  return [payments,refetch]
 };
 
 export default usePayment;

@@ -20,6 +20,7 @@ import './Navbar.css'
 
 
 const Navbar = () => {
+ 
   const { user, logout } = useAuth()
   const handlelogout = () => {
     logout()

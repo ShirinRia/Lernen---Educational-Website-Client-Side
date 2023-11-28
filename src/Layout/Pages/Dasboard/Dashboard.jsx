@@ -8,17 +8,19 @@ import useStudent from "../../../Hooks/useStudent";
 
 
 const Dashboard = () => {
-    // const [cart] = useCart();
-    // const [isAdmin] = useAdmin()
+   
+    // const isAdmin = false
+    // const isStudent=false
     const {user}=useAuth()
     const [isAdmin] = useAdmin()
     const [isStudent] = useStudent()
+    console.log(isStudent)
 console.log(isAdmin,isStudent)
    
     return (
         <Container sx={{ display: 'flex'}}>
             {/* dashboard side bar */}
-            <Box sx={{ width: '400px', flexGrow: 1, minHeight: '100vh', bgcolor: 'primary.main', color: 'white' }}>
+            <Box sx={{  minWidth:'250px', minHeight: '100vh', bgcolor: 'primary.main', color: 'white' }}>
                 <ul className="menu p-4">
                     {
                         isAdmin ? <>
@@ -81,17 +83,18 @@ console.log(isAdmin,isStudent)
 
                     }
 
-                    <Divider sx={{ bgcolor: 'white' }} />
-                    <li>
-                        <NavLink to="/" style={{ color: 'white' }}>
+                    <Divider sx={{ bgcolor: 'white',mr:2,mb:2 }} />
+                   
+                      <Box sx={{display:'flex', flexDirection:'column',gap:2}}>
+                      <NavLink to="/" style={{ color: 'white' }}>
                             {/* <FaHome></FaHome> */}
                             Home</NavLink>
-                    </li>
-                    <li>
+                    
+                   
                         <NavLink to="/order/salad" style={{ color: 'white' }}>
                             {/* <FaSearch></FaSearch> */}
-                            Menu</NavLink>
-                    </li>
+                            Menu</NavLink></Box>  
+                   
                 </ul>
             </Box>
             {/* dashboard content */}

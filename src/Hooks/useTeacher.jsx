@@ -1,22 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
+import useAuth from "./useAuth";
 import useAxiossecure from "./useAxios/useAxiossecure";
-// import useAuth from "./useAuth";
 
 const useTeacher = () => {
-    // const { user } = useAuth()
-    const axiossecure = useAxiossecure()
-  //tan stack query
-  const { refetch, data:instructors=[] } = useQuery({
-   
-    queryKey: ["instructors"],  // should be unique
-    queryFn: async () => {
-      
-        // console.log(user?.email)
-        const res = await axiossecure.get(`/instructors`)
-        return res.data
-      },
-  });
-  return [instructors,refetch]
+    const { user, loading } = useAuth();
+    const axiosSecure = useAxiossecure();
+    const { data: isInstructor, isPending: isStudentLoading } = useQuery({
+        queryKey: [user?.email, 'isTeacher'],
+        enabled: !loading,
+        queryFn: async () => {
+            // console.log('asking or checking is admin', user)
+            const res = await axiosSecure.get(`/users/instructor/${user?.email}`);
+            console.log(res.data);
+            return res.data?.Instructor;
+        }
+    })
+    return [isInstructor, isStudentLoading]
+    // return [isAdmin]
 };
 
 export default useTeacher;

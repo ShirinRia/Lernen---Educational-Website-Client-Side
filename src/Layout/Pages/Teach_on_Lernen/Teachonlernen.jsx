@@ -16,12 +16,13 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Swal from 'sweetalert2'
 import useAxiossecure from "../../../Hooks/useAxios/useAxiossecure";
 import { FormControl } from "@mui/material";
+import useAuth from "../../../Hooks/useAuth";
 
 const useStyles = makeStyles((theme) => ({
 
     typo: {
         fontWeight: 600,
-        marginBottom:'8px',
+        marginBottom: '8px',
         textAlign: 'center',
         fontSize: '32px'
 
@@ -32,7 +33,6 @@ const Teachonlernen = () => {
         { label: 'Beginner' },
         { label: 'Experienced' },
         { label: 'SomeIdea' }
-
     ];
     const [experience, setexperience] = useState('');
     const [category, setcategory] = useState('');
@@ -49,10 +49,11 @@ const Teachonlernen = () => {
         formState: { errors },
         reset
     } = useForm()
+    const {user} = useAuth()
     const axiosSecure = useAxiossecure()
     const onSubmit = (data) => {
         console.log(data)
-
+      
         const title = data.title;
         const name = data.name;
         const status = 'Pending'
@@ -68,7 +69,7 @@ const Teachonlernen = () => {
                 if (response.data.insertedId) {
                     Swal.fire({
                         title: 'Success!',
-                        text: 'Thanks for your donation',
+                        text: 'Thanks for your registration. We will let you know when admin approved your registration request',
                         icon: 'success',
                         confirmButtonText: 'OK'
                     })
@@ -106,7 +107,8 @@ const Teachonlernen = () => {
                     >
                         <TextField
                             style={{ padding: "0", marginBottom: "15px", width: "50%" }}
-                            label="Full Name"
+                            // label="Full Name"
+                            value={user?.displayName}
                             variant="outlined"
                             {...register("name")}
                         />

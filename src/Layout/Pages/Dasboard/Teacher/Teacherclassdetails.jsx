@@ -1,4 +1,5 @@
 import { Button, Container } from "@mui/material";
+import { useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
@@ -6,7 +7,8 @@ import Swal from "sweetalert2";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import useAxiossecure from '../../../../Hooks/useAxios/useAxiossecure';
-import { useState } from 'react';
+import useAssignment from '../../../../Hooks/useAssignment'
+import BasicCard from './BasicCard'
 import Divider from '@mui/material/Divider';
 import TextField from "@material-ui/core/TextField";
 import { palette } from '@mui/system';
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     typo: {
 
         textAlign: 'center',
-        fontSize: '48px',
+        fontSize: '32px !important',
         paddingTop: '25px',
         paddingBottom: '25px',
 
@@ -87,8 +89,11 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
+
 const Teacherclassdetails = () => {
     const { id } = useParams()
+   const [assignments,refetch]=useAssignment()
+
     const classes = useStyles();
     const {
         register,
@@ -97,9 +102,30 @@ const Teacherclassdetails = () => {
         reset,
     } = useForm()
     const [open, setOpen] = useState(false);
+    const [enrollmentlength,setenrollmentlength]=useState(0)
+   
+    const [perdaylength,setperdaylength]=useState(0)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const axiosSecure = useAxiossecure();
+    useEffect(() => {
+        
+        let url = `/totalenrollment/${id}`
+        axiosSecure.get(url)
+            .then(res => {
+                setenrollmentlength(res.data.length)
+            })
+
+
+    //    url = `/totalassignment/${id}`
+    //     axiosSecure.get(url)
+    //         .then(res => {
+    //             setassignmentlength(res.data.length)
+    //         })
+    }, [axiosSecure, id])
+    const assignment=assignments.filter(classe => classe.courseid ===id)
+    console.log(assignment.length)
+    const perdaycount = assignment.reduce((total, item) => total + item.submissioncount, 0);
     const onSubmit = async (data) => {
 
         console.log(data)
@@ -107,8 +133,9 @@ const Teacherclassdetails = () => {
         const courseid = id
         const description = data.description;
         const date = data.date
+        const submissioncount = 0
 
-        const newassignment = { courseid, title, date, description }
+        const newassignment = { courseid, title, date, description, submissioncount }
         console.log(newassignment)
         const url = `/createassignment`;
         axiosSecure.post(url, newassignment)
@@ -123,6 +150,7 @@ const Teacherclassdetails = () => {
                         confirmButtonText: 'OK'
                     })
                     reset()
+                    refetch()
                 }
             })
             .catch(function (error) {
@@ -139,62 +167,73 @@ const Teacherclassdetails = () => {
     return (
 
         <Container fullwidth>
-            <Button onClick={handleOpen} varient="contained">Create</Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+            <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
 
-            >
-                <Box sx={style}>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <Typography className={classes.typo}>
-                            Update Course</Typography>
+                <BasicCard title={'Total enrollment'} value={enrollmentlength} />
+                <BasicCard title={'Total Assignment'} value={assignment.length}/>
+                <BasicCard title={'Per Day Assignment'} value={perdaycount}/>
+            </Box>
+            <Divider />
+            <Box sx={{ display: 'flex', justifyContent: 'end', mt: 4 }}>
+                <Button onClick={handleOpen} variant="contained">Create Assignment</Button>
 
-                        <Box sx={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(2, 1fr)',
-                            gap: 2,
-                            alignItems: 'center',
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
 
-                            // bgcolor: 'green'
-                        }}
-                        >
-                            <TextField
-                                style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                                label="Title"
-                                variant="outlined"
-                                {...register("title")}
-                            />
+                >
+                    <Box sx={style}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <Typography className={classes.typo}>
+                                Create an Assignment</Typography>
 
-                            <TextField
-                                style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                                // label="Deadline"
-                                variant="outlined"
-                                type='date'
-                                //    onFocus={(this.type='date')}
-                                // onfocus="(this.type='date')"
-                                {...register("date")}
-                            />
-                            <Textarea style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }} minRows={3} placeholder="Description" variant="outlined"  {...register("description")} />
+                            <Box sx={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(2, 1fr)',
+                                gap: 2,
+                                alignItems: 'center',
 
-                            {errors.exampleRequired && <span>This field is required</span>}
+                                // bgcolor: 'green'
+                            }}
+                            >
+                                <TextField
+                                    style={{ padding: "0", marginBottom: "15px", width: "100%" }}
+                                    label="Title"
+                                    variant="outlined"
+                                    {...register("title")}
+                                />
 
-                        </Box>
+                                <TextField
+                                    style={{ padding: "0", marginBottom: "15px", width: "100%" }}
+                                    // label="Deadline"
+                                    variant="outlined"
+                                    type='date'
+                                    //    onFocus={(this.type='date')}
+                                    // onfocus="(this.type='date')"
+                                    {...register("date")}
+                                />
+                                <Textarea style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }} minRows={3} placeholder="Description" variant="outlined"  {...register("description")} />
 
-                        <button
-                            style={{ padding: "15px 0px", marginBottom: "15px", width: "100%", fontSize: '24px', background: "#dd33fa", outline: '0', color: "white" }}
+                                {errors.exampleRequired && <span>This field is required</span>}
 
-                            // variant="outlined"
+                            </Box>
 
-                            type="submit">
-                            Create Assignment
-                        </button>
+                            <button
+                                style={{ padding: "15px 0px", marginBottom: "15px", width: "100%", fontSize: '24px', background: "#dd33fa", outline: '0', color: "white" }}
 
-                    </form>
-                </Box>
-            </Modal>
+                                // variant="outlined"
+
+                                type="submit">
+                                Create Assignment
+                            </button>
+
+                        </form>
+                    </Box>
+                </Modal>
+            </Box>
+
         </Container>
 
     );

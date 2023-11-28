@@ -9,6 +9,7 @@ import Swal from 'sweetalert2'
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import useAxiossecure from "../../../Hooks/useAxios/useAxiossecure";
 import { styled } from '@mui/system';
+import useAuth from "../../../Hooks/useAuth";
 const useStyles = makeStyles((theme) => ({
 
     typo: {
@@ -74,6 +75,7 @@ const Addclass = () => {
 
 
     const classes = useStyles();
+    const {user}=useAuth()
     const axiosSecure = useAxiossecure()
    
     const {
@@ -102,7 +104,7 @@ const Addclass = () => {
                 if (response.data.insertedId) {
                     Swal.fire({
                         title: 'Success!',
-                        text: 'Thanks for your donation',
+                        text: 'Your course has been added',
                         icon: 'success',
                         confirmButtonText: 'OK'
                     })
@@ -143,14 +145,15 @@ const Addclass = () => {
                     />
                     <TextField
                         style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                        label="Your Name"
+                        // label="Your Name"
+                        value={user?.displayName}
                         variant="outlined"
                         {...register("name")}
                     />
 
                     <TextField
                         style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                        label="Email"
+                        value={user?.email}
                         variant="outlined"
                         {...register("email")}
                     />

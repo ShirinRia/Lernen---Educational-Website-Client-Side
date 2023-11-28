@@ -81,7 +81,7 @@ const Login = () => {
     }
 
     return (
-        <Container sx={{ width: '100vw',  mx: "auto", my:'16px', border: 1 }}>
+        <Container sx={{ width: '100vw',  mx: "auto", my:'45px' }}>
             <Box >
            
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -91,14 +91,14 @@ const Login = () => {
                         flexDirection: 'column',
                        
                         alignItems: 'center',
-                        border:1,
+                      
                         bgcolor: 'background.paper',
-                        borderRadius: 1,
+                      
                         // bgcolor: 'green'
                     }}
                     >
                         
-                        <button  style={{ marginBottom:"15px", width:"50%", padding:'15px 0' }}> 
+                        <button  style={{ marginBottom:"15px",marginTop:"25px", width:"50%", padding:'15px 0' }}> 
                             <FcGoogle /> Continue with Google </button>
                         {/* register your input into the hook by invoking the "register" function */}
                         {/* <input defaultValue="test" {...register("example")} /> */}

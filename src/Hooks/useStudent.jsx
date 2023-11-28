@@ -10,9 +10,9 @@ const useStudent = () => {
         enabled: !loading,
         queryFn: async () => {
             // console.log('asking or checking is admin', user)
-            const res = await axiosSecure.get(`/users/student/${user.email}`);
+            const res = await axiosSecure.get(`/users/student/${user?.email}`);
             console.log(res.data);
-            return res.data?.admin;
+            return res.data?.Student;
         }
     })
     return [isStudent, isStudentLoading]
