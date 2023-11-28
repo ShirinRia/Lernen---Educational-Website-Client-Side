@@ -1,7 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 // import useCart from "../../HOOKS/useCart";
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useAxiossecure from "../../../Hooks/useAxios/useAxiossecure";
@@ -17,7 +17,7 @@ const CheckoutForm = ({ specclass }) => {
     const elements = useElements();
     const axiosSecure = useAxiossecure();
     const { user } = useAuth();
-    
+
     const navigate = useNavigate();
     const {
         register,
@@ -118,26 +118,38 @@ const CheckoutForm = ({ specclass }) => {
 
     return (
 
-        <Box sx={{ width: '100%' }}>
-
+        <Box sx={{ width: '100%',border:1,p:4,borderRadius:8 }}>
+            <Box sx={{ display: 'flex',mb:4, justifyContent: 'center',fontSize:28,fontWeight:600 }}>
+            <p>Pay Only {specclass.price} and Start Learning!!!</p>
+            </Box>
+            
+            <Box sx={{ display: 'flex',mb:4, justifyContent: 'space-between',gap:10,fontSize:20 }}>
+                <p >{specclass.title}</p>
+                <p>$ {specclass.price}</p>
+            </Box>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <CardElement
                     options={{
                         style: {
                             base: {
                                 fontSize: '16px',
+                               
                                 color: '#424770',
                                 '::placeholder': {
                                     color: '#aab7c4',
+                                   
                                 },
                             },
                             invalid: {
                                 color: '#9e2146',
                             },
+                            
                         },
+                        
                     }}
+                    sx={{ width: '100%',border:1,p:4,borderRadius:8}}
                 />
-                <Button variant="contained" type="submit" disabled={!stripe || !clientSecret}> Pay</Button>
+                <Button  sx={{mt:4,width: '100%',fontWeight:600, fontSize:18}} variant="contained" type="submit" disabled={!stripe || !clientSecret}> Pay</Button>
                 {/* <button className="btn btn-sm btn-primary my-4" type="submit" disabled={!stripe || !clientSecret}>
                 Pay
             </button> */}

@@ -10,7 +10,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 const Payment = () => {
     const specclass=useLoaderData()
     return (
-        <Box sx={{my:16 , mx:'auto', width:'550px'}}>
+        <Box sx={{my:8 , mx:'auto', width:'max-content',}}>
             {/* <SectionTitle heading="Payment" subHeading="Please pay to eat"></SectionTitle> */}
             <div>
                 <Elements stripe={stripePromise}>

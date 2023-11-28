@@ -20,9 +20,10 @@ import { FormControl } from "@mui/material";
 const useStyles = makeStyles((theme) => ({
 
     typo: {
-
+        fontWeight: 600,
+        marginBottom:'8px',
         textAlign: 'center',
-        fontSize: '24px'
+        fontSize: '32px'
 
     }
 }));
@@ -87,7 +88,7 @@ const Teachonlernen = () => {
     }
 
     return (
-        <Box sx={{ width: '100vw', mx: 'auto', my: 16, border: 1 }}>
+        <Box sx={{ width: '100vw', mx: 'auto', my: 8 }}>
             <Container maxWidth="lg" >
 
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -97,9 +98,9 @@ const Teachonlernen = () => {
                         flexDirection: 'column',
 
                         alignItems: 'center',
-                        border: 1,
+                        // border: 1,
                         bgcolor: 'background.paper',
-                        borderRadius: 1,
+                        // borderRadius: 1,
                         // bgcolor: 'green'
                     }}
                     >

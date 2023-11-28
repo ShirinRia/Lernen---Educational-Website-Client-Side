@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Container, Grid } from '@mui/material';
+import { Container, Divider, Grid } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -20,52 +20,61 @@ const Detailsbanner = ({specclass}) => {
         bgcolor: 'background.paper',
         display: 'flex',
         justifyItems: 'center',
-        backgroundColor: 'gray',
+        backgroundColor: 'black',
+        color:'white',
         alignItems: 'center',
         position: 'relative',
+        gap:'10px'
 
     };
 
     return (
 
         <Box sx={style}>
-            <Box sx={{ textAlign: 'left', width: '33%', ml: 10, p: 5, boxShadow: 5, }}>
-                <p >
+            <Box sx={{ textAlign: 'left', mr: 10, ml:5, px: 5, width:'60%'  }}>
+                {/* <p >
                     category
-                </p>
-                <p >
+                </p> */}
+                <p style={{fontSize:'36px'  }}>
                     {title}
                 </p>
-                <p  style={{ mt: 2 }}>
+                <p  style={{ mt: 1 }}>
                     {description}
                 </p>
-                <p  style={{ mt: 2 }}>
-                 Created by {name}
+                <p  style={{ mt: 1,fontSize:18 }}>
+                 Created by <span style={{color:'darksalmon',fontWeight:600}}>{name}</span>
                 </p>
             </Box>
+            {/* sx={{ width: 345 ,position:'absolute', top:'10%', right:'5%'}} */}
             {/* <Box sx={{ textAlign: 'left', width: '33%', height:'500px', position:'absolute', top:'10%', right:'5%', ml: 10, p: 5, boxShadow: 5, }}> */}
+           
+           <Box sx={{ textAlign: 'left',  width:'40%'  }}>   
             <Card sx={{ width: 345 ,position:'absolute', top:'10%', right:'5%'}}>
-                <CardActionArea>
+               
                     <CardMedia
                         component="img"
-                        height="140"
+                        height='100%'
+                        width='100%'
                         image={photo}
                         alt="green iguana"
+                      
                     />
+                    <Divider/>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                           {price}
+                           $ {price}
                            
                         </Typography>
                        
                     </CardContent>
-                </CardActionArea>
+               
                 <CardActions>
-                    <Button href={`/payment/${_id}`} variant="contained" color="primary">
+                    <Button  href={`/payment/${_id}`} variant="contained" color="primary" sx={{width:'100%',fontWeight:600, fontSize:18}}>
                         Pay
                     </Button>
                 </CardActions>
-            </Card>
+            </Card></Box>
+          
         </Box>
 
         // </Box>

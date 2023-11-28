@@ -27,9 +27,9 @@ const Navbar = () => {
       .catch(error => console.log(error))
   }
   const pages = <>
-    <NavLink to={'/'}>Home</NavLink>
-    <NavLink to={'/allclass'}>All Classes</NavLink>
-    <NavLink to={'/techon'}>Tech on Lernen</NavLink>
+    <NavLink style={{mr:'4px'}} to={'/'}>Home</NavLink>
+    <NavLink style={{mr:'4px'}} to={'/allclass'}>All Classes</NavLink>
+    <NavLink style={{mr:'4px'}} to={'/techon'}>Tech on Lernen</NavLink>
 
     {/* {user &&
     <>

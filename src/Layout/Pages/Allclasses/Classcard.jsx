@@ -94,7 +94,7 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-const Classcard = ({ classe, refetch }) => {
+const Classcard = ({ classe, refetch,isallclassnav }) => {
     const classes = useStyles();
     const {
         register,
@@ -203,15 +203,15 @@ const Classcard = ({ classe, refetch }) => {
                     {description}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {description}
+                    enrolled this course
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {price}
+                <Typography variant="body2"  sx={{fontWeight:700, fontSize:'16px'}}>
+                   $ {price}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
                 {
-                    isteacher ? <div>
+                    isteacher & !isallclassnav ? <div>
                         <div>
                             <Button onClick={handleOpen} variant="contained" >Update</Button>
                             <Modal
@@ -296,9 +296,14 @@ const Classcard = ({ classe, refetch }) => {
 
                         <Button onClick={handleDelete} variant="contained" >Delete</Button></div>
                         : <div>
-                            {isstudent ?
+                            {isstudent & !isallclassnav  ?
                                 <Button variant="contained" href={`/dashboard/myenrollclass/${_id}`}>Continue</Button>
-                                : <Button variant="contained" href={`/details/${_id}`}>Enroll</Button>
+                                : <div>
+                                    {
+                                    isallclassnav &&   <Button variant="contained" href={`/details/${_id}`}>Enroll</Button>
+                                }
+                                </div>
+                              
                             }
                         </div>
                 }
