@@ -86,13 +86,14 @@ const Addclass = () => {
     const onSubmit = async (data) => {
 
         console.log(data)
+        const status = 'Pending'
         const title = data.title;
         const name = data.name;
         const email = data.email;
         const price = data.price;
         const description = data.description;
         const photo = data.photo
-        const newclass = { title, name, email, price, description, photo }
+        const newclass = { title, name, email, price, description,status, photo }
         console.log(newclass)
         const url = `/classes`;
         axiosSecure.post(url, newclass)

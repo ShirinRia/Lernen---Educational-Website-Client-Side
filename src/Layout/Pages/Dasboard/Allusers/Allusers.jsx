@@ -9,7 +9,7 @@ const Allusers = () => {
     const [users,refetch] = useAllusers();
     return (
         <div>
-           <Users  users={users}></Users>
+           <Users  users={users} refetch={refetch}></Users>
             
         </div>
     );

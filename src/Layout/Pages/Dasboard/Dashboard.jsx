@@ -3,15 +3,17 @@ import { Container, Divider } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import Box from '@mui/material/Box';
 import useAuth from "../../../Hooks/useAuth";
+import useAdmin from "../../../Hooks/useAdmin";
+import useStudent from "../../../Hooks/useStudent";
 
 
 const Dashboard = () => {
     // const [cart] = useCart();
     // const [isAdmin] = useAdmin()
     const {user}=useAuth()
-    const isAdmin = true
-    const isStudent = false
-
+    const [isAdmin] = useAdmin()
+    const [isStudent] = useStudent()
+console.log(isAdmin,isStudent)
    
     return (
         <Container sx={{ display: 'flex'}}>

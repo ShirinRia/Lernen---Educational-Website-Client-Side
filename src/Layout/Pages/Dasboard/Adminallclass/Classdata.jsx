@@ -1,55 +1,147 @@
+import useAxiospublic from '../../../../Hooks/useAxios/useAxiospublic';
+import useAuth from '../../../../Hooks/useAuth';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-// import { DataGridPro } from '@mui/x-data-grid-pro';
+import { Button, Container } from "@mui/material";
+import Swal from 'sweetalert2'
+import { RxCrossCircled } from "react-icons/rx";
+import { FaCheckCircle } from "react-icons/fa";
+const Classdata = ({ classe, refetch }) => {
+  const axiosPublic = useAxiospublic()
+  const { user } = useAuth()
+  const columns = [
+    // { field: 'id', headerName: 'ID', width: 90 },
+    {
+      field: 'photo',
+      headerName: 'Image',
+      headerAlign: 'center',
+      align: 'center',
+      width: 150,
+      editable: true,
+      renderCell: (params) => <img src={params.value} style={{ width: '100%', height: '100%' }} />, // renderCell will render the component
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'title',
+      headerName: 'Title',
+      width: 150,
+      editable: true,
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
 
-const Classdata = ({ classe }) => {
+      width: 110,
+      editable: true,
+    },
+    {
+      field: 'price',
+      headerName: 'Price',
+
+      sortable: false,
+      width: 60,
+
+    },
+    {
+      field: 'status',
+      headerName: 'Status',
+
+      sortable: false,
+      width: 100,
+
+    },
+    {
+      field: 'Action',
+      width: 150,
+      renderCell: (cellValues) => {
+        // console.log(cellValues)
+        return (
+          <div style={{ display: 'flex' }}>
+            <Button onClick={() => handlechange(cellValues.id)} ><FaCheckCircle style={{ fontSize: '30px' }} /></Button>
+            {/* <Button ><PiCrosshairDuotone /></Button> */}
+            <Button onClick={() => handlechange2(cellValues.id)}><RxCrossCircled style={{ fontSize: '30px' }} /></Button>
+          </div>
+        )
+      }
+
+    },
+  ];
+  const url = `/updateclassinfo`;
+  const handlechange = (id_) => {
+    const info = {
+      // email: user?.email,
+      id: id_,
+      status: 'Approved',
+
+    }
     
-    const columns = [
-        // { field: 'id', headerName: 'ID', width: 90 },
-        {
-          field: 'name',
-          headerName: 'Name',
-          width: 150,
-          editable: true,
-        },
-        {
-          field: 'title',
-          headerName: 'Title',
-          width: 150,
-          editable: true,
-        },
-        {
-          field: 'email',
-          headerName: 'Email',
-         
-          width: 110,
-          editable: true,
-        },
-        {
-          field: 'price',
-          headerName: 'Price',
-          description: 'This column has a value getter and is not sortable.',
-          sortable: false,
-          width: 160,
-         
-        },
-      ];
+    axiosPublic.patch(url, info)
+      .then(response => {
+        console.log(response.data);
 
-      const rows = [
-        // { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-        // { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-        // { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-        // { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-        // { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-        // { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-        // { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-        // { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-        {id: '65620211342e58d4eef79195', title: 'dsaa', name: 'saxds', email: 'ssria41@gmail.com', price: '896'}
-        
-      ];
-      console.log(classe)
-      return (
-        <Box sx={{ height: 400, width: '100%' }}>
+        if (response.data.modifiedCount > 0) {
+          refetch()
+          Swal.fire({
+            title: 'Approved!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          })
+        }
+      })
+      .catch((error) => {
+
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  }
+  const handlechange2 = (id_) => {
+    const info = {
+      // email: user?.email,
+      id: id_,
+      status: 'Rejected',
+      // role: 'Student'
+    }
+    
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Reject!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.patch(url, info)
+          .then(response => {
+            console.log(response.data);
+
+            if (response.data.modifiedCount > 0) {
+              refetch()
+              Swal.fire({
+                title: 'Rejected!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+              })
+            }
+          })
+          .catch((error) => {
+
+            const errorMessage = error.message;
+            console.log(errorMessage);
+          });
+      }
+    });
+
+  }
+  console.log(classe)
+  return (
+    <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={classe}
         getRowId={(row) => row._id}
@@ -66,7 +158,7 @@ const Classdata = ({ classe }) => {
         disableRowSelectionOnClick
       />
     </Box>
-      );
+  );
 };
 
 export default Classdata;

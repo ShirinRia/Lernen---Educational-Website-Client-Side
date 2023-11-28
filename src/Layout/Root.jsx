@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import Appbar from "./Shared/Appbar/Appbar";
+import Navbar from "./Shared/Appbar/Navbar";
 
 const Root = () => {
     return (
         <div >
-            <Appbar/>
+            <Navbar/>
             <Outlet></Outlet>
             {/* <Footer></Footer> */}
         </div>

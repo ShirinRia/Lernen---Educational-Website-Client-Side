@@ -1,14 +1,47 @@
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-// import { DataGridPro } from '@mui/x-data-grid-pro';
-
-const Users = ({ users }) => {
+import { Button } from '@mui/material';
+import { RiAdminFill } from "react-icons/ri";
+import Swal from "sweetalert2";
+import useAxiossecure from '../../../../Hooks/useAxios/useAxiossecure';
+import { useState } from 'react';
+const Users = ({ users,refetch }) => {
+  const [changestatus,setchangestatus]=useState(false)
+  const axiosSecure = useAxiossecure();
+  const handlemakeadmin = (id,name) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/users/admin/${id}`)
+        .then((res) => {
+          if (res.data.modifiedCount > 0) {
+            setchangestatus(true)
+            refetch();
+            Swal.fire({
+              title: "Congrats",
+              text: `${name}  is an admin now!!`,
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
     console.log(users)
     const columns = [
         // { field: 'id', headerName: 'ID', width: 90 },
         {
           field: 'photo',
           headerName: 'Image',
+          headerAlign: 'center',
+          align:'center',
           width: 150,
           editable: true,
           renderCell: (params) => <img src={params.value} style={{ width: '100%', height: '100%' }} />, // renderCell will render the component
@@ -18,15 +51,35 @@ const Users = ({ users }) => {
           headerName: 'Name',
           width: 150,
           editable: true,
+          headerAlign: 'center',
+          align:'center'
         },
        
         
         {
           field: 'email',
           headerName: 'Email',
-         
-          width: 110,
+          headerAlign: 'center',
+          width: 310,
           editable: true,
+          align:'center'
+        },
+        {
+          field: 'Action',
+          fieldAlign:'center',
+          width: 150,
+          headerAlign: 'center',
+          align:'center',
+          renderCell: (cellValues) => {
+            console.log(cellValues)
+            return (
+            
+                <Button disabled={changestatus} onClick={() => handlemakeadmin(cellValues.id,cellValues.row.name)} ><RiAdminFill style={{ fontSize: '30px' }} /></Button>
+               
+            
+            )
+          }
+    
         },
         
       ];
@@ -36,6 +89,7 @@ const Users = ({ users }) => {
       return (
         <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
+    
         rows={users}
         getRowId={(row) => row._id}
         columns={columns}

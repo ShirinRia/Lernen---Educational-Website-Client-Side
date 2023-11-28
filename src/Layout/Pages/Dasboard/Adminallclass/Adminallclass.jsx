@@ -7,7 +7,7 @@ const Adminallclasses = () => {
     const [classes,refetch] = useAllclass();
     return (
         <div>
-           <Classdata  classe={classes}></Classdata>
+           <Classdata  classe={classes} refetch={refetch}></Classdata>
             
         </div>
     );

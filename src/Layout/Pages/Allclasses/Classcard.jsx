@@ -21,7 +21,7 @@ import { palette } from '@mui/system';
 import { createTheme } from '@mui/material/styles';
 import { makeStyles } from "@material-ui/core/styles";
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
-
+import './Classcard.css'
 const useStyles = makeStyles((theme) => ({
 
     typo: {
@@ -182,6 +182,7 @@ const Classcard = ({ classe, refetch }) => {
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardHeader
+            sx={{fontWeight:700}}
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                         <img src={photo} alt="" height={50} width={50} />
@@ -200,6 +201,12 @@ const Classcard = ({ classe, refetch }) => {
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
                     {description}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    {description}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    {price}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>

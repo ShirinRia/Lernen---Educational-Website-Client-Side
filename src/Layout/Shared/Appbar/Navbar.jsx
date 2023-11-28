@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,15 +12,26 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../assets/logo.png'
-import { NavLink } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
+import './Navbar.css'
 
-const pages =<>
-<NavLink to={'/'}>Home</NavLink>
-<NavLink to={'/allclass'}>All Classes</NavLink>
-<NavLink to={'/techon'}>Tech on Lernen</NavLink>
 
-{/* {user &&
+const Navbar = () => {
+  const { user, logout } = useAuth()
+  const handlelogout = () => {
+    logout()
+      .then(() => { })
+      .catch(error => console.log(error))
+  }
+  const pages = <>
+    <NavLink to={'/'}>Home</NavLink>
+    <NavLink to={'/allclass'}>All Classes</NavLink>
+    <NavLink to={'/techon'}>Tech on Lernen</NavLink>
+
+    {/* {user &&
     <>
         <li className="font-medium"><NavLink to={'/addfood'}>Add Food</NavLink></li>
         <li className="font-medium"><NavLink to={'/managefood'}>Manage My Foods</NavLink></li>
@@ -28,23 +39,23 @@ const pages =<>
 
 
     </>} */}
-</>
-// const pages=  ['Home', 'All Classes', 'Tech on Lernen'];
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const settings = <>
-<li><NavLink to={'/'}>Profile</NavLink></li>
-<li><NavLink to={'/'}>Account</NavLink></li>
-<li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
-</>;
+  </>
 
-function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const settings = <>
+    {user &&
+      <li>{user.displayName}</li>
+    }
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
+    <li> <NavLink onClick={handlelogout} to={"/login"} className="hidden lg:block  btn hover:text-white hover:bg-[#e879f9] py-4">Log Out</NavLink></li>
+  </>;
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
@@ -57,32 +68,29 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar sx={{
-      background:'white',
-      position: 'static',
-    }}>
-      <Container maxWidth="lg">
+    <AppBar position="static">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          <img src={logo} alt="logo" height={'80'} />
-          {/* <Typography
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+            <img src={logo} alt="logo" height={'80'} />
+          </Box>
+          <Typography
             variant="h6"
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-              mr: 2,
-              ml:4,
+              ml: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'secondary',
+              color: 'white',
               textDecoration: 'none',
             }}
           >
             LERNEN
-          </Typography> */}
+          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -91,7 +99,7 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color='secondary'
+              color='white'
             >
               <MenuIcon />
             </IconButton>
@@ -111,82 +119,79 @@ function ResponsiveAppBar() {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
+                color: 'white',
               }}
             >
-              {/* {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))} */}
               {pages}
             </Menu>
           </Box>
-         
-          {/* <Typography
+          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+            <img src={logo} alt="logo" height={'80'} />
+          </Box>
+
+          <Typography
             variant="h5"
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-             
+              mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'secondary',
+              color: 'inherit',
               textDecoration: 'none',
-             
             }}
           >
             LERNEN
-          </Typography> */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' ,  }, gap:2, ml:5 }}>
-            {/* {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2,  display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))} */}
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, color: 'Secondary' }}>
             {pages}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px'  }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {/* {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))} */}
-              {settings}
-            </Menu>
+            {user ?
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src={user?.photoURL} />
+                </IconButton>
+              </Tooltip>
+
+              :
+              <Link to={'/login'} className="left-0 hidden lg:block  py-2 font-semibold rounded  dark:bg-violet-400 dark:text-gray-900"> Log in </Link>
+
+            }
+
+            <div>
+
+              <Menu
+                sx={{ mt: '45px' }}
+               
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings}
+              </Menu>
+            </div>
+
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default Navbar;
