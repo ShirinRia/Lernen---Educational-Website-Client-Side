@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 
 const style = {
 
-    width: '100vw',
+   
     height: '80vh',
     bgcolor: 'background.paper',
     display: 'flex',

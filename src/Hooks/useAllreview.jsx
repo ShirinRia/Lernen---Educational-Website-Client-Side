@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiossecure from "./useAxios/useAxiossecure";
 // import useAuth from "./useAuth";
 
-const useAllreviewjsxjsx = () => {
+const useAllreview = () => {
     // const { user } = useAuth()
     const axiossecure = useAxiossecure()
   //tan stack query
@@ -19,4 +19,4 @@ const useAllreviewjsxjsx = () => {
   return [reviews,refetch]
 };
 
-export default useAllreviewjsxjsx;
+export default useAllreview;

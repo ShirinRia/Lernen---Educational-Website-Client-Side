@@ -1,26 +1,20 @@
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
 import { useEffect, useState } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import { Container } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Extracard from './Extracard';
+import { experimentalStyled as styled } from '@mui/material/styles';
 const useStyles = makeStyles((theme) => ({
 
     typo: {
 
         textAlign: 'center',
-        fontSize: '24px !important',
-        paddingTop: '15px',
-        paddingBottom: '5px',
+        fontSize: '32px !important',
+        paddingTop: '5px',
+        paddingBottom: '10px',
         color: 'white'
     }
 }));
@@ -34,16 +28,21 @@ const Extra1 = () => {
     }, [])
 
     return (
-        <Container maxWidth='xl' sx={{ bgcolor: 'secondary.light', my: 8 }}>
+        <Container maxWidth='xl' sx={{ bgcolor: 'secondary.light', my: 8, py: 4 }}>
             <Typography className={classes.typo} textAlign='center' >
                 Courses We Provide
             </Typography>
-            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, md: 2 }}>
 
-                
-            {services.map(service=><Extracard key={service.id} service={service}></Extracard>)}
-           
-    </Grid>
+            <Box sx={{
+                display: 'grid', justifyContent: 'center', gridTemplateColumns: 'repeat(2, 1fr)', columnGap: 1,
+                rowGap: 3,
+            }}>
+                {services.map(service => <Extracard key={service.id} service={service}></Extracard>)}
+            </Box>
+
+            {/*  */}
+
+
 
         </Container>
     );

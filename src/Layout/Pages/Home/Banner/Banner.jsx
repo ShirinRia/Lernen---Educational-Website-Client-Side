@@ -57,17 +57,18 @@ const Banner = () => {
 
         //         </div> */}
         //     </Carousel>
-        <Carousel
-        transitionMs={100} enableAutoPlay autoPlaySpeed={1500}
-    >
-        <img src={banner1} alt="" className='w-[100vw] h-[70vh]' />
-        {/* <img src={banner} alt="" className='w-[100vw] h-[70vh]' /> */}
-        <img src={banner2} alt="" className='w-[100vw] h-[70vh]' />
-        <img src={banner3} alt="" className='w-[100vw] h-[70vh]' />
-        <img src={banner4} alt="" className='w-[100vw] h-[70vh]' />
-        {/* <img src={banner6} alt="" className='w-[100vw] h-[70vh]' /> */}
+       <Container maxWidth='xl' sx={{border:2,height:'80vh'}}> <Carousel
+       transitionMs={100} enableAutoPlay autoPlaySpeed={1500}
+       style={{height:'100%'}}
+   >
+       <img src={banner1} alt="" height={'100%'} width={'100%'}  />
+       {/* <img src={banner} alt="" height={'100%'} width={'100%'}  /> */}
+       <img src={banner2} alt="" height={'100%'} width={'100%'}  />
+       <img src={banner3} alt="" height={'100%'} width={'100%'}  />
+       <img src={banner4} alt="" height={'100%'} width={'100%'}  />
+       {/* <img src={banner6} alt="" className='w-[100vw] h-[70vh]' /> */}
 
-    </Carousel>
+   </Carousel></Container>
 
 
     );

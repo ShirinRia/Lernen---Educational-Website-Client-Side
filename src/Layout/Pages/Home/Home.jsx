@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+
 import Banner from "./Banner/Banner";
 import JoinasTeacher from "./Joinasteacher/JoinasTeacher";
 import Partners from "./Partners/Partners";
@@ -8,6 +8,8 @@ import useAllclass from "../../../Hooks/useAllclass";
 import Featuredcourse from "./Featuredcourse/Featuredcourse";
 import Extra1 from "./Extra1/Extra1";
 import Extra2 from "./Extra2";
+import Feedbacks from "./Reviews/Feedbacks";
+import { Box, Container } from "@mui/material";
 
 
 const Home = () => {
@@ -20,8 +22,8 @@ const Home = () => {
             <Banner />
             <Partners />
             <Extra2 />
-            <Box sx={{ display: 'flex', gap: 2, mb: 4, justifyContent: 'center' }}>
-               
+            <Box sx={{ display: 'flex', gap: 2, my: 8, justifyContent: 'center' }}>
+
                 <BasicCard title={'Total User'} value={users.length} />
                 <BasicCard title={'Total Classes'} value={classes.length} />
                 <BasicCard title={'Total enrollment'} value={totalenrollment} />
@@ -30,7 +32,14 @@ const Home = () => {
             <Featuredcourse />
             <JoinasTeacher />
             <Extra1 />
-            
+            <Container maxWidth='xl' sx={{ my:4,border:1}}>
+            <Box sx={{width:'maxcontent', my:4,px:8,}}>
+           
+            <Feedbacks />
+            </Box>
+            </Container>
+           
+           
         </div>
     );
 };
