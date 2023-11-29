@@ -12,12 +12,24 @@ const useStyles = makeStyles((theme) => ({
     typo: {
 
         textAlign: 'center',
-        fontSize: '32px !important',
+        fontSize: '48px !important',
         paddingTop: '5px',
-        paddingBottom: '10px',
-        color: 'white'
+        paddingBottom: '25px',
+        color:"darkblue"
     }
 }));
+const grey = {
+    50: '#F3F6F9',
+    100: '#E5EAF2',
+    200: '#DAE2ED',
+    300: '#C7D0DD',
+    400: '#B0B8C4',
+    500: '#9DA8B7',
+    600: '#6B7A90',
+    700: '#434D5B',
+    800: '#303740',
+    900: '#1C2025',
+};
 const Extra1 = () => {
     const classes = useStyles();
     const [services, setservices] = useState([])
@@ -26,9 +38,9 @@ const Extra1 = () => {
             .then(res => res.json())
             .then(data => setservices(data))
     }, [])
-
+// bgcolor: grey[200],
     return (
-        <Container maxWidth='xl' sx={{ bgcolor: 'secondary.light', my: 8, py: 4 }}>
+        <Container maxWidth='xl' sx={{  my: 8, py: 4 }}>
             <Typography className={classes.typo} textAlign='center' >
                 Courses We Provide
             </Typography>

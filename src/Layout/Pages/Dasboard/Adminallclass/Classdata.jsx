@@ -19,45 +19,49 @@ const Classdata = ({ classe, refetch }) => {
       align: 'center',
       width: 150,
       editable: true,
+      align:'center',
+          
       renderCell: (params) => <img src={params.value} style={{ width: '100%', height: '100%' }} />, // renderCell will render the component
     },
-    {
-      field: 'name',
-      headerName: 'Name',
-      width: 140,
-      editable: true,
-    },
+    
     {
       field: 'title',
       headerName: 'Title',
       width: 150,
       editable: true,
+      align:'center',
+          headerAlign: 'center',
     },
     {
       field: 'email',
       headerName: 'Email',
 
-      width: 110,
+      width: 190,
       editable: true,
+      align:'center',
+          headerAlign: 'center',
     },
     {
-      field: 'price',
-      headerName: 'Price',
-
-      sortable: false,
-      width: 60,
-
+      field: 'description',
+      headerName: 'Description',
+      width: 200,
+      editable: true,
+      align:'center',
+          headerAlign: 'center',
     },
     {
       field: 'status',
       headerName: 'Status',
-
+      align:'center',
+      headerAlign: 'center',
       sortable: false,
       width: 90,
 
     },
     {
       field: 'Action',
+      align:'center',
+          headerAlign: 'center',
       width: 200,
       renderCell: (cellValues) => {
         // console.log(cellValues)
@@ -152,11 +156,11 @@ const Classdata = ({ classe, refetch }) => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 10,
             },
           },
         }}
-        pageSizeOptions={[5]}
+        pageSizeOptions={[10]}
         // checkboxSelection
         disableRowSelectionOnClick
       />

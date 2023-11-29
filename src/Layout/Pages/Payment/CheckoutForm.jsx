@@ -100,7 +100,7 @@ const CheckoutForm = ({ specclass }) => {
                 const res = await axiosSecure.post('/payments', payment);
                 console.log('payment saved', res.data);
                 // refetch();
-                if (res.data?.paymentResult?.insertedId) {
+                if (res.data?.insertedId) {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
@@ -109,7 +109,7 @@ const CheckoutForm = ({ specclass }) => {
                         timer: 1500
                     });
                     reset()
-                    navigate(`/dashboard/enroll/${user._id}`)
+                    navigate(`/dashboard/enroll`)
                 }
 
             }

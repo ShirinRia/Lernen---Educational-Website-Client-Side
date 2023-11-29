@@ -97,7 +97,7 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-const Classcard = ({ classe, refetch,isallclassnav }) => {
+const Classcard = ({ classe, refetch, isallclassnav }) => {
     const classes = useStyles();
     const {
         register,
@@ -108,7 +108,8 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const { _id, title, name, email, price, description, photo,status } = classe
+    const { _id, title, name, email, price, description, photo, status, userphoto, totalenrollment
+    } = classe
     const [isteacher] = useTeacher()
     const [isstudent] = useStudent()
     const axiosSecure = useAxiossecure();
@@ -147,7 +148,7 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
         const photo = data.photo
         const newclass = { title, name, email, price, description, photo }
         console.log(newclass)
-        const url = `/updatecourse/${_id}`;
+        const url = `/updatecourse?id=${_id}`;
         axiosSecure.put(url, newclass)
             .then(function (response) {
                 console.log(response);
@@ -161,6 +162,7 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
                     })
                     refetch()
                     reset()
+                    setOpen(false);
                 }
                 else {
                     Swal.fire({
@@ -185,10 +187,10 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardHeader
-            sx={{fontWeight:700}}
+                sx={{ fontWeight: 700 }}
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        <img src={photo} alt="" height={50} width={50} />
+                        <img src={userphoto} alt="" height={50} width={50} />
                     </Avatar>
                 }
 
@@ -201,122 +203,120 @@ const Classcard = ({ classe, refetch,isallclassnav }) => {
                 image={photo}
                 alt="Paella dish"
             />
-            <CardContent>
-                <Typography variant="body2" color="text.secondary" sx={{textAlign:'justify'}}>
+            <CardContent >
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2, textAlign: 'justify' }}>
                     {description}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    enrolled this course
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2, textAlign: 'justify' }}>
+                    {totalenrollment} enrolled this course
                 </Typography>
-                <Typography variant="body2"  sx={{fontWeight:700, fontSize:'16px'}}>
-                   $ {price}
+                <Typography variant="body2" sx={{ mb: 2, fontWeight: 700, fontSize: '16px' }}>
+                    $ {price}
                 </Typography>
-                <Typography variant="body2"  sx={{fontWeight:400, fontSize:'14px'}}>
-                   {status}
+                <Typography variant="body2" sx={{ fontWeight: 400, fontSize: '14px' }}>
+                    {status}
                 </Typography>
             </CardContent>
-            <CardActions disableSpacing>
+            <CardActions disableSpacing >
                 {
                     isteacher & !isallclassnav ? <Box>
-                        
-                        <Box sx={{display:'flex', gap:1}}>
-                            <div>
-                            <Button onClick={handleOpen} variant="contained" >Update</Button>
-                            <Modal
-                                open={open}
-                                onClose={handleClose}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
 
-                            >
-                                <Box sx={style}>
-                                    <form onSubmit={handleSubmit(onSubmit)}>
-                                        <Typography className={classes.typo}>
-                                            Update Course</Typography>
+                        <Box sx={{ display: 'flex', gap: 1 }}>
+                            <div >
+                                <Button onClick={handleOpen} variant="contained" >Update</Button>
+                                <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
 
-                                        <Box sx={{
-                                            display: 'grid',
-                                            gridTemplateColumns: 'repeat(2, 1fr)',
-                                            gap: 2,
-                                            alignItems: 'center',
+                                >
+                                    <Box sx={style}>
+                                        <form onSubmit={handleSubmit(onSubmit)}>
+                                            <Typography className={classes.typo}>
+                                                Update Course</Typography>
 
-                                            // bgcolor: 'green'
-                                        }}
-                                        >
-                                            <TextField
-                                                style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                                               value={title}
-                                                variant="outlined"
-                                               
-                                                {...register("title")}
-                                            />
-                                            <TextField
-                                                style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                                                value={name}
-                                                variant="outlined"
-                                                disabled
-                                                {...register("name")}
-                                            />
+                                            <Box sx={{
+                                                display: 'grid',
+                                                gridTemplateColumns: 'repeat(2, 1fr)',
+                                                gap: 2,
+                                                alignItems: 'center',
 
-                                            <TextField
-                                                style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                                                value={email}
-                                                variant="outlined"
-                                                {...register("email")}
-                                            />
-                                            <TextField
-                                                style={{ padding: "0", marginBottom: "15px", width: "100%" }}
-                                                value={price}
-                                                variant="outlined"
-                                                {...register("price")}
-                                            />
-                                            <Textarea style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }} minRows={3} placeholder="Description" value={description} variant="outlined"  {...register("description")} />
+                                                // bgcolor: 'green'
+                                            }}
+                                            >
+                                                <TextField
+                                                    style={{ padding: "0", marginBottom: "15px", width: "100%" }}
+                                                    value={title}
+                                                    variant="outlined"
 
-                                            {errors.exampleRequired && <span>This field is required</span>}
-                                            <TextField
-                                                style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }}
-                                                value={photo}
-                                                variant="outlined"
-                                                {...register("photo")}
-                                            />
-                                        </Box>
+                                                    {...register("title")}
+                                                />
+                                                <TextField
+                                                    style={{ padding: "0", marginBottom: "15px", width: "100%" }}
+                                                    value={name}
+                                                    variant="outlined"
+                                                    disabled
+                                                    {...register("name")}
+                                                />
 
-                                        <button
-                                            style={{ padding: "15px 0px", marginBottom: "15px", width: "100%", fontSize: '24px', background: "#dd33fa", outline: '0', color: "white" }}
+                                                <TextField
+                                                    style={{ padding: "0", marginBottom: "15px", width: "100%" }}
+                                                    value={email}
+                                                    disabled
+                                                    variant="outlined"
+                                                    {...register("email")}
+                                                />
+                                                <TextField
+                                                    style={{ padding: "0", marginBottom: "15px", width: "100%" }}
+                                                    value={price}
+                                                    variant="outlined"
+                                                    {...register("price")}
+                                                />
+                                                <Textarea style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }} minRows={3} placeholder="Description" value={description} variant="outlined"  {...register("description")} />
 
-                                            // variant="outlined"
+                                                {errors.exampleRequired && <span>This field is required</span>}
+                                                <TextField
+                                                    style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }}
+                                                    value={photo}
+                                                    variant="outlined"
+                                                    {...register("photo")}
+                                                />
+                                            </Box>
 
-                                            type="submit">
-                                            Update Course
-                                        </button>
+                                            <button
+                                                style={{ padding: "15px 0px", marginBottom: "15px", width: "100%", fontSize: '24px', background: "#dd33fa", outline: '0', color: "white" }}
 
+                                                // variant="outlined"
 
-
-                                    </form>
-                                </Box>
-                            </Modal>
+                                                type="submit">
+                                                Update Course
+                                            </button>
+                                        </form>
+                                    </Box>
+                                </Modal>
                             </div>
                             <Button onClick={handleDelete} variant="contained" >Delete</Button>
                             <Button
                                 href={`/dashboard/myclass/${_id}`}
                                 variant="contained"
-
+                                disabled={`${status}==='Approved' ? 'true' : 'false'`}
                                 type="submit">
                                 See details
                             </Button>
                         </Box>
 
-                       
-                        </Box>
-                        : <div>
-                            {isstudent & !isallclassnav  ?
-                                <Button variant="contained" href={`/dashboard/myenrollclass/${_id}`}>Continue</Button>
-                                : <div>
+
+                    </Box>
+                        : <div style={{ width: '100%', }}>
+                            {isstudent & !isallclassnav ?
+                                <Button variant="contained" sx={{ width: '100%' }} href={`/dashboard/myenrollclass/${_id}`}>Continue</Button>
+                                : <div style={{ width: '100%', }}>
                                     {
-                                    isallclassnav &&   <Button variant="contained" href={`/details/${_id}`}>Enroll</Button>
-                                }
+                                        isallclassnav && <Button variant="contained" href={`/details/${_id}`} sx={{ width: '100%' }}>Enroll</Button>
+                                    }
                                 </div>
-                              
+
                             }
                         </div>
                 }

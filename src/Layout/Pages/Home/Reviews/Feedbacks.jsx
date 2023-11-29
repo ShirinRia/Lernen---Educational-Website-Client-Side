@@ -25,32 +25,32 @@ const Feedbacks = () => {
             keyboard={true}
             modules={[Navigation, Pagination, Mousewheel, Keyboard]}
             className="mySwiper"
-            sx={{mx:'8px'}}
+            sx={{ mx: '8px' }}
         >
             {
                 reviews.map(review => <SwiperSlide key={review._id}>
-                    <Box sx={{display:'flex', justifyContent:'center'}}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' ,alignItems:'center' }}>
                         <div><Avatar
-                        alt="Remy Sharp"
-                        src={review.photo}
-                        sx={{ width: 80, height: 80 }}
-                    />
-                    <Typography component="div" variant="h5">
-                        {review.name}
-                    </Typography>
-                    <ReactStars
-                        count={5}
-                        value={review.rating}
-                        size={24}
-                        isHalf={true}
-                        emptyIcon={<i className="far fa-star"></i>}
-                        halfIcon={<i className="fa fa-star-half-alt"></i>}
-                        fullIcon={<i className="fa fa-star"></i>}
-                        activeColor="#ffd700"
-                    /></div>
-                    
+                            alt="Remy Sharp"
+                            src={review.photo}
+                            sx={{ width: 120, height: 120 }}
+                        />
+                            <Typography component="div" variant="h5">
+                                {review.name}
+                            </Typography>
+                            <ReactStars
+                                count={5}
+                                value={review.rating}
+                                size={24}
+                                isHalf={true}
+                                emptyIcon={<i className="far fa-star"></i>}
+                                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                                fullIcon={<i className="fa fa-star"></i>}
+                                activeColor="#ffd700"
+                            /></div>
+
                     </Box>
-                    <Typography variant="subtitle1" color="text.secondary" component="div" sx={{mx:12,my:4, textAlign:'center'}}>
+                    <Typography variant="subtitle1" color="darkblue" component="div" sx={{ mx: 12, my: 4, textAlign: 'center' }}>
                         {review.description}
                     </Typography>
                 </SwiperSlide>)

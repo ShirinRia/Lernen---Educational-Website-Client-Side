@@ -2,20 +2,33 @@
 import useAllclass from "../../../../Hooks/useAllclass";
 import Classcard from "../../Allclasses/Classcard";
 import { Box, Container, Typography } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
 
 import Grid from '@mui/material/Grid';
 
+const useStyles = makeStyles((theme) => ({
 
+    typo: {
+
+        textAlign: 'center',
+        fontSize: '48px !important',
+        paddingTop: '5px',
+        paddingBottom: '25px',
+        color:"darkblue"
+    }
+}));
 const Featuredcourse = () => {
+    const styleclasses = useStyles();
     const [classes] = useAllclass()
+    const approvedClasses = classes.filter(classe => classe.status === "Approved")
     const length = 6
-    const sortallclass = [...classes].sort((a, b) =>
+    const sortallclass = [...approvedClasses].sort((a, b) =>
         parseInt(a.totalenrollment) < parseInt(b.totalenrollment) ? 1 : -1,
     );
     console.log('sortallclass', sortallclass)
     return (
         <Container maxWidth='lg' sx={{  my:8 }} >
-            <Typography variant="h3" style={{ textAlign: 'center', fontWeight: 600 }}>
+            <Typography className={styleclasses.typo}>
                 Top Courses
             </Typography>
             {/*             

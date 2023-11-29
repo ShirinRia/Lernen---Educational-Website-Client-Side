@@ -1,15 +1,9 @@
-import { useForm } from "react-hook-form"
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
-import Container from '@mui/material/Container';
 import TextField from "@material-ui/core/TextField";
-import { palette } from '@mui/system';
-import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-import { createTheme } from '@mui/material/styles';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 import useAllusers from "../../../Hooks/useAllusers";
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +43,6 @@ const Userprofile = () => {
             <Divider />
             <Box sx={{
                 display: 'flex', flexDirection: 'column',
-
                 alignItems: 'center',
                 my: 4
             }}>
@@ -60,20 +53,17 @@ const Userprofile = () => {
                     variant="outlined"
                     value={thisuser?.email}
                 />
-
-
-
                 <TextField
                     style={{ padding: "0", marginBottom: "15px", width: "100%" }}
                     // label="Role"
                     variant="outlined"
                     value={thisuser?.role}
                 />
-                <TextField
+                {/* <TextField
                     style={{ padding: "0", marginBottom: "15px", width: "100%" }}
                     label="Phone Number"
                     variant="outlined"
-                />
+                /> */}
 
             </Box>
         </Box>

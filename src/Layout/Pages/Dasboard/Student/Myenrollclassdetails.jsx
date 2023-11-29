@@ -19,6 +19,7 @@ import { createTheme } from '@mui/material/styles';
 import { makeStyles } from "@material-ui/core/styles";
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import useAuth from "../../../../Hooks/useAuth";
+import { useMutation } from "@tanstack/react-query";
 const useStyles = makeStyles((theme) => ({
 
     typo: {
@@ -92,7 +93,9 @@ const style = {
     p: 4,
 };
 const Myenrollclassdetails = () => {
-const [newRating,setnewrating]=useState()
+    const axiosSecure = useAxiossecure()
+    const { user } = useAuth()
+    const [newRating, setnewrating] = useState()
     const ratingChanged = (Rating) => {
         setnewrating(Rating)
     };
@@ -103,25 +106,58 @@ const [newRating,setnewrating]=useState()
         formState: { errors },
         reset,
     } = useForm()
+    const url = `/feedbacks`;
+    const mutation = useMutation({
+        mutationFn: (newTodo) => {
+            return axiosSecure.post(url, newTodo)
+                .then(function (response) {
+                    console.log(response);
+                    if (response.data.insertedId) {
+
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Thanks for your feedback',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        })
+                        reset()
+                        setOpen(false)
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    Swal.fire({
+                        title: 'Something Went Wrong!',
+                        text: error,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })
+                });
+        },
+    })
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const assignments = useLoaderData()
-    const {id}=useParams()
+    const { id } = useParams()
     const columns = [
         // { field: 'id', headerName: 'ID', width: 90 },
         {
             field: 'title',
             headerName: 'Title',
             // width: "max-content",
-            width: 200,
+            width: 250,
             editable: true,
+            headerAlign: 'center',
+            align:'center'
         },
         {
             field: 'description',
             headerName: 'Description',
-            width: 350,
+            width: 450,
             editable: true,
+            headerAlign: 'center',
+            align:'center'
         },
 
         {
@@ -129,82 +165,60 @@ const [newRating,setnewrating]=useState()
             headerName: 'Deadline',
             width: '110',
             editable: true,
+            headerAlign: 'center',
+            align:'center'
         },
         {
             field: 'Action',
+            headerAlign: 'center',
+            align:'center',
             renderCell: (cellValues) => {
                 console.log(cellValues)
                 return (
-                    <Button onClick={()=>handlesubmission(cellValues.row.submissioncount,cellValues.row._id,cellValues.row.courseid)} variant="contained">Submit</Button>
+                    <Button onClick={() => handlesubmission(cellValues.row.submissioncount, cellValues.row._id, cellValues.row.courseid)} variant="contained">Submit</Button>
                 )
             }
 
         },
 
     ];
-    const axiosSecure = useAxiossecure()
-    const {user}=useAuth()
-    const handlesubmission=(count,id,cid)=>{
-        const url=`/course/assignment/${id}/${cid}`
+
+    const handlesubmission = (count, id, cid) => {
+        const url = `/course/assignment/${id}/${cid}`
         const newsubmission = {
-           newcount:count+1
+            newcount: count + 1
         }
-        axiosSecure.patch(url,newsubmission)
-        .then(response => {
-            console.log(response);
-            if (response.data.modifiedCount > 0) {
-                Swal.fire({
-                    title: 'Submitted!',
-                    // text: 'Sign In Successfully',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                })
-            }
-        })
+        axiosSecure.patch(url, newsubmission)
+            .then(response => {
+                console.log(response);
+                if (response.data.modifiedCount > 0) {
+                    Swal.fire({
+                        title: 'Submitted!',
+                        // text: 'Sign In Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            })
     }
     const onSubmit = async (data) => {
 
         console.log(data)
 
         const description = data.description;
-        const name=user?.name
-        const photo=user?.photoURL
-        const email=user?.email
-        const rating=newRating
-        const courseid=id
-        const feedback = { description, rating, courseid,name,photo,email}
+        const name = user?.name
+        const photo = user?.photoURL
+        const email = user?.email
+        const rating = newRating
+        const courseid = id
+        const feedback = { description, rating, courseid, name, photo, email }
         console.log(feedback)
-
-        const url = `/feedbacks`;
-        axiosSecure.post(url, feedback)
-            .then(function (response) {
-                console.log(response);
-                if (response.data.insertedId) {
-
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Thanks for your feedback',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    })
-                    reset()
-                    setOpen(false)
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                Swal.fire({
-                    title: 'Something Went Wrong!',
-                    text: error,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-            });
+        mutation.mutate(feedback)
 
     }
     return (
         <Container>
-            <Button sx={{mb:4}} onClick={handleOpen} variant="contained">Teaching Evaluation Report </Button>
+            <Button sx={{ mb: 4 }} onClick={handleOpen} variant="contained">Teaching Evaluation Report </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -229,7 +243,7 @@ const [newRating,setnewrating]=useState()
                             <Textarea style={{ padding: "0", marginBottom: "15px", width: "100%", gridColumn: 'span 2' }} minRows={3} placeholder="Description" variant="outlined"  {...register("description")} />
 
                             {errors.exampleRequired && <span>This field is required</span>}
-                           
+
                             <ReactStars
                                 count={5}
                                 onChange={ratingChanged}
@@ -238,7 +252,7 @@ const [newRating,setnewrating]=useState()
                             />,
                         </Box>
 
-                        <button 
+                        <button
                             style={{ padding: "15px 0px", marginBottom: "15px", width: "100%", fontSize: '24px', background: "#dd33fa", outline: '0', color: "white" }}
 
                             // variant="outlined"

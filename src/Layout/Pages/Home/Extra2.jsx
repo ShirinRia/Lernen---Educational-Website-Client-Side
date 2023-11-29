@@ -2,12 +2,23 @@ import banner from '../../../assets/banner.jpg'
 import Box from '@mui/material/Box';
 
 import Typography from '@mui/material/Typography';
-
+const grey = {
+    50: '#F3F6F9',
+    100: '#E5EAF2',
+    200: '#DAE2ED',
+    300: '#C7D0DD',
+    400: '#B0B8C4',
+    500: '#9DA8B7',
+    600: '#6B7A90',
+    700: '#434D5B',
+    800: '#303740',
+    900: '#1C2025',
+};
 const style = {
 
    
     height: '80vh',
-    bgcolor: 'background.paper',
+    
     display: 'flex',
     justifyItems: 'center',
 

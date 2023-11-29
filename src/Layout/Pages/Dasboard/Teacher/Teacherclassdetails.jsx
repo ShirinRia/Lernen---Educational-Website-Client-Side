@@ -17,6 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 const useStyles = makeStyles((theme) => ({
 
     typo: {
@@ -101,10 +102,39 @@ const Teacherclassdetails = () => {
         formState: { errors },
         reset,
     } = useForm()
+    const url = `/createassignment`;
+    const mutation = useMutation({
+        mutationFn: (newTodo) => {
+          return axiosSecure.post(url, newTodo)
+          .then(function (response) {
+              console.log(response);
+              setOpen(false)
+              if (response.data.insertedId) {
+                  Swal.fire({
+                      title: 'Success!',
+                      text: 'Assignment Added',
+                      icon: 'success',
+                      confirmButtonText: 'OK'
+                  })
+                  reset()
+                  refetch()
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+              Swal.fire({
+                  title: 'Something Went Wrong!',
+                  text: error,
+                  icon: 'error',
+                  confirmButtonText: 'OK'
+                })
+            });
+          },
+        })
+   
     const [open, setOpen] = useState(false);
     const [enrollmentlength,setenrollmentlength]=useState(0)
    
-    const [perdaylength,setperdaylength]=useState(0)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const axiosSecure = useAxiossecure();
@@ -137,31 +167,8 @@ const Teacherclassdetails = () => {
 
         const newassignment = { courseid, title, date, description, submissioncount }
         console.log(newassignment)
-        const url = `/createassignment`;
-        axiosSecure.post(url, newassignment)
-            .then(function (response) {
-                console.log(response);
-                setOpen(false)
-                if (response.data.insertedId) {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Assignment Added',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    })
-                    reset()
-                    refetch()
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                Swal.fire({
-                    title: 'Something Went Wrong!',
-                    text: error,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-            });
+        mutation.mutate(newassignment)
+        
 
     }
     return (
@@ -171,7 +178,7 @@ const Teacherclassdetails = () => {
 
                 <BasicCard title={'Total enrollment'} value={enrollmentlength} />
                 <BasicCard title={'Total Assignment'} value={assignment.length}/>
-                <BasicCard title={'Per Day Assignment'} value={perdaycount}/>
+                <BasicCard title={'Per Day Assignment Submission'} value={perdaycount}/>
             </Box>
             <Divider />
             <Box sx={{ display: 'flex', justifyContent: 'end', mt: 4 }}>

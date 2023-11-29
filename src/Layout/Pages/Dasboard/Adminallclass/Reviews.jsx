@@ -29,7 +29,7 @@ const Reviews = ({ review }) => {
                         halfIcon={<i className="fa fa-star-half-alt"></i>}
                         fullIcon={<i className="fa fa-star"></i>}
                         activeColor="#ffd700"
-                    />,
+                    />
                     <Typography variant="subtitle1" color="text.secondary" component="div">
                         {description}
                     </Typography>

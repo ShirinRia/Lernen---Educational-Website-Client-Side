@@ -19,6 +19,7 @@ import Teacherclassdetails from "../Layout/Pages/Dasboard/Teacher/Teacherclassde
 import Myenrollclassdetails from "../Layout/Pages/Dasboard/Student/Myenrollclassdetails";
 
 import Classs from "../Layout/Pages/Dasboard/Adminallclass/Classs";
+import PrivateRoute from "./PrivateRoute";
 
 
 const Routes = createBrowserRouter([
@@ -43,7 +44,7 @@ const Routes = createBrowserRouter([
 
             {
                 path: "techon",
-                element: <Teachonlernen />,
+                element: <PrivateRoute><Teachonlernen /></PrivateRoute>,
             },
             {
                 path: "allclass",
@@ -51,7 +52,7 @@ const Routes = createBrowserRouter([
             },
             {
                 path: "details/:id",
-                element: <Classdetails />,
+                element: <PrivateRoute><Classdetails /></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/class/${params.id}`)
             },
             {
@@ -65,7 +66,7 @@ const Routes = createBrowserRouter([
     },
     {
         path: "dashboard",
-        element: <Dashboard />,
+        element: <PrivateRoute><Dashboard /></PrivateRoute>,
         children: [
             {
                 path: "profile",

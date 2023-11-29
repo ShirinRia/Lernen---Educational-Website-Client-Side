@@ -1,13 +1,11 @@
 import { useForm } from "react-hook-form"
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import TextField from "@material-ui/core/TextField";
-import { palette } from '@mui/system';
-import { createTheme } from '@mui/material/styles';
+// import { palette } from '@mui/system';
+// import { createTheme } from '@mui/material/styles';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -17,10 +15,11 @@ import Swal from 'sweetalert2'
 import useAxiossecure from "../../../Hooks/useAxios/useAxiossecure";
 import { FormControl } from "@mui/material";
 import useAuth from "../../../Hooks/useAuth";
-import useTeacher from "../../../Hooks/useTeacher";
-import useStatus from "../../../Hooks/useStatus";
+// import useTeacher from "../../../Hooks/useTeacher";
+// import useStatus from "../../../Hooks/useStatus";
 import useAllInstructor from "../../../Hooks/useAllinstructor";
 import Showcard from "./Showcard";
+import { useMutation } from "@tanstack/react-query";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -32,36 +31,70 @@ const useStyles = makeStyles((theme) => ({
 
     }
 }));
-const Teachonlernen = () => {
-    const { user } = useAuth()
-    const [instructors, refetch] = useAllInstructor();
-    const thisuser = instructors.find(userr => userr?.email == user?.email)
-    console.log(thisuser)
 
-    console.log(thisuser?.status)
-    const options = [
-        { label: 'Beginner' },
-        { label: 'Experienced' },
-        { label: 'SomeIdea' }
-    ];
-    const [experience, setexperience] = useState('');
-    const [category, setcategory] = useState('');
-    const handleexpChange = (event) => {
-        setexperience(event.target.value);
-    };
-    const handlecatChange = (event) => {
-        setcategory(event.target.value);
-    };
-    const styleclasses = useStyles();
+const Teachonlernen = () => {
     const {
         register,
         handleSubmit,
         formState: { errors },
         reset
     } = useForm()
+    const { user } = useAuth()
+    const [instructors, refetch] = useAllInstructor();
+    const thisuser = instructors.find(userr => userr?.email == user?.email)
+    console.log(thisuser)
 
+    console.log(thisuser?.status)
+    const url = `/newinstructor`;
     const axiosSecure = useAxiossecure()
+//   const mutation=usePostmutation()
+  
+    const mutation = useMutation({
+        mutationFn: (newTodo) => {
+          return axiosSecure.post(url, newTodo)
+          .then(function (response) {
 
+              console.log(response);
+              if (response.data.insertedId) {
+                  Swal.fire({
+                      title: 'Success!',
+                      text: 'Thanks for your registration. We will let you know when admin approved your registration request',
+                      icon: 'success',
+                      confirmButtonText: 'OK'
+                  })
+                  refetch()
+                  reset()
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+              Swal.fire({
+                  title: 'Something Went Wrong!',
+                  text: error,
+                  icon: 'error',
+                  confirmButtonText: 'OK'
+              })
+          });
+        },
+      })
+ 
+    const options = [
+        { label: 'Beginner' },
+        { label: 'Experienced' },
+        { label: 'SomeIdea' }
+    ];
+    // const [experience, setexperience] = useState('');
+    const [category, setcategory] = useState('');
+    // const handleexpChange = (event) => {
+    //     setexperience(event.target.value);
+    // };
+    const handlecatChange = (event) => {
+        setcategory(event.target.value);
+    };
+    const styleclasses = useStyles();
+    
+
+   
     const onSubmit = (data) => {
         console.log(data)
 
@@ -72,33 +105,35 @@ const Teachonlernen = () => {
         const category = data.category;
         const experience = data.experience
         const photo = data.photo
-        const newinstructor = { title, name, email, category, experience, status, photo }
+        const userphoto=user.photoURL
+        const newinstructor = { userphoto,title, name, email, category, experience, status, photo }
         console.log(data)
-        const url = `/newinstructor`;
-        axiosSecure.post(url, newinstructor)
-            .then(function (response) {
+       
+        // axiosSecure.post(url, newinstructor)
+        //     .then(function (response) {
 
-                console.log(response);
-                if (response.data.insertedId) {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Thanks for your registration. We will let you know when admin approved your registration request',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    })
-                    // refetch()
-                    reset()
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                Swal.fire({
-                    title: 'Something Went Wrong!',
-                    text: error,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-            });
+        //         console.log(response);
+        //         if (response.data.insertedId) {
+        //             Swal.fire({
+        //                 title: 'Success!',
+        //                 text: 'Thanks for your registration. We will let you know when admin approved your registration request',
+        //                 icon: 'success',
+        //                 confirmButtonText: 'OK'
+        //             })
+        //             // refetch()
+        //             reset()
+        //         }
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //         Swal.fire({
+        //             title: 'Something Went Wrong!',
+        //             text: error,
+        //             icon: 'error',
+        //             confirmButtonText: 'OK'
+        //         })
+        //     });
+        mutation.mutate(newinstructor)
 
     }
 

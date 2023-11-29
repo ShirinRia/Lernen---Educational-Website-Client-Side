@@ -3,6 +3,7 @@ import useAxiossecure from "../../../../Hooks/useAxios/useAxiossecure";
 
 import Classcard from "../../Allclasses/Classcard";
 import useAuth from "../../../../Hooks/useAuth";
+import { Box } from "@mui/material";
 
 const Myclass = () => {
 
@@ -21,11 +22,14 @@ const Myclass = () => {
     });
 
     return (
-        <div>
+        <Box sx={{
+            mb:8,
+           display: 'grid', justifyContent: 'center', gridTemplateColumns: 'repeat(2, 1fr)', columnGap: 1,rowGap: 3,
+        }}>
             {
                 teacherclasses.map(classe => <Classcard key={classe._id} classe={classe} refetch={refetch}></Classcard>)
             }
-        </div>
+        </Box>
     );
 };
 

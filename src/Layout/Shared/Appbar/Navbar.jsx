@@ -16,21 +16,43 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../assets/logo.png'
 import useAuth from '../../../Hooks/useAuth';
+import { red } from '@mui/material/colors';
 import './Navbar.css'
+const blue = {
+  100: '#DAECFF',
+  200: '#b6daff',
+  400: '#3399FF',
+  500: '#007FFF',
+  600: '#0072E5',
+  900: '#003A75',
+};
 
+const grey = {
+  50: '#F3F6F9',
+  100: '#E5EAF2',
+  200: '#DAE2ED',
+  300: '#C7D0DD',
+  400: '#B0B8C4',
+  500: '#9DA8B7',
+  600: '#6B7A90',
+  700: '#434D5B',
+  800: '#303740',
+  900: '#1C2025',
+};
 
 const Navbar = () => {
- 
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const { user, logout } = useAuth()
   const handlelogout = () => {
     logout()
-      .then(() => { })
+      .then(() => { setAnchorElUser(null); })
       .catch(error => console.log(error))
   }
   const pages = <>
-    <NavLink style={{mr:'4px'}} to={'/'}>Home</NavLink>
-    <NavLink style={{mr:'4px'}} to={'/allclass'}>All Classes</NavLink>
-    <NavLink style={{mr:'4px'}} to={'/techon'}>Tech on Lernen</NavLink>
+    <NavLink style={{ mr: '4px' }} to={'/'}>Home</NavLink>
+    <NavLink style={{ mr: '4px' }} to={'/allclass'}>All Classes</NavLink>
+    <NavLink style={{ mr: '4px' }} to={'/techon'}>Tech on Lernen</NavLink>
 
     {/* {user &&
     <>
@@ -44,14 +66,17 @@ const Navbar = () => {
 
   const settings = <>
     {user &&
-      <li>{user.displayName}</li>
-    }
+    <div>
+ <li>{user.displayName}</li>
+    
 
-    <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
+    <li><NavLink to={'/dashboard/profile'}>Dashboard</NavLink></li>
     <li> <NavLink onClick={handlelogout} to={"/login"} className="hidden lg:block  btn hover:text-white hover:bg-[#e879f9] py-4">Log Out</NavLink></li>
+    </div>
+     
+}
   </>;
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+ 
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -69,10 +94,10 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ bgcolor: grey[100],paddingBottom:2 }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+        <Toolbar disableGutters >
+          <Box sx={{ display: { xs: 'none', md: 'flex' },alignItems:'center'}}>
             <img src={logo} alt="logo" height={'80'} />
           </Box>
           <Typography
@@ -81,19 +106,19 @@ const Navbar = () => {
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-              ml: 2,
+              mr: 8,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'white',
+              color: 'darkblue',
               textDecoration: 'none',
             }}
           >
             LERNEN
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{  display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -138,7 +163,7 @@ const Navbar = () => {
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              // display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -149,11 +174,11 @@ const Navbar = () => {
           >
             LERNEN
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, color: 'Secondary' }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: 2, fontSize: 20, color: 'Secondary' }}>
             {pages}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, fontWeight: 600, fontSize: 20 }}>
             {user ?
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -162,7 +187,7 @@ const Navbar = () => {
               </Tooltip>
 
               :
-              <Link to={'/login'} className="left-0 hidden lg:block  py-2 font-semibold rounded  dark:bg-violet-400 dark:text-gray-900"> Log in </Link>
+              <Link to={'/login'} > Log in </Link>
 
             }
 
@@ -170,7 +195,7 @@ const Navbar = () => {
 
               <Menu
                 sx={{ mt: '45px' }}
-               
+
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{

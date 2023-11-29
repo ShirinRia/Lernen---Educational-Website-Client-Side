@@ -22,7 +22,7 @@ const Users = ({ users,refetch }) => {
         axiosSecure.patch(`/users/admin/${id}`)
         .then((res) => {
           if (res.data.modifiedCount > 0) {
-            setchangestatus(true)
+            // setchangestatus(true)
             refetch();
             Swal.fire({
               title: "Congrats",
@@ -65,18 +65,30 @@ const Users = ({ users,refetch }) => {
           align:'center'
         },
         {
-          field: 'Action',
-          fieldAlign:'center',
-          width: 150,
+          field: 'role',
+          headerName: 'Role',
           headerAlign: 'center',
+          width: 110,
+          editable: true,
+          align:'center'
+        },
+        {
+          field: 'Action',
+          
+          headerAlign: 'center',
+          width: 150,
+          
           align:'center',
           renderCell: (cellValues) => {
             console.log(cellValues)
+           
             return (
-            
-                <Button disabled={changestatus} onClick={() => handlemakeadmin(cellValues.id,cellValues.row.name)} ><RiAdminFill style={{ fontSize: '30px' }} /></Button>
+            <div>
+             
+              
+              <Button disabled={cellValues.row.role === 'Admin' ? true : false} onClick={() => handlemakeadmin(cellValues.id,cellValues.row.name)} ><RiAdminFill style={{ fontSize: '30px' }} /></Button>
                
-            
+            </div>
             )
           }
     

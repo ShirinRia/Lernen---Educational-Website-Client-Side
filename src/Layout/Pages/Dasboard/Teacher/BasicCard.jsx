@@ -1,8 +1,5 @@
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -10,24 +7,17 @@ const useStyles = makeStyles((theme) => ({
   typo: {
 
       textAlign: 'center',
-      fontSize: '24px !important',
+      fontSize: '32px !important',
       paddingTop: '25px',
       paddingBottom: '25px',
+      color:"darkblue"
 
   }
 }));
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    
-  </Box>
-);
-const BasicCard = ({title,value}) => {
+const BasicCard = ({title,value,color}) => {
   const classes = useStyles();
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 275,bgcolor:color }}>
       <CardContent>
         
         <Typography variant="h5" component="div" className={classes.typo}>

@@ -1,8 +1,6 @@
 import { useForm } from "react-hook-form"
 import Box from '@mui/material/Box';
 import TextField from "@material-ui/core/TextField";
-import { palette } from '@mui/system';
-import { createTheme } from '@mui/material/styles';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
 import Swal from 'sweetalert2'
@@ -10,6 +8,8 @@ import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAuto
 import useAxiossecure from "../../../Hooks/useAxios/useAxiossecure";
 import { styled } from '@mui/system';
 import useAuth from "../../../Hooks/useAuth";
+import { useMutation } from "@tanstack/react-query";
+import { Navigate, useNavigate, useNavigation } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
 
     typo: {
@@ -73,11 +73,38 @@ const Textarea = styled(BaseTextareaAutosize)(
   );
 const Addclass = () => {
 
-
+    const url = `/classes`;
     const classes = useStyles();
     const {user}=useAuth()
     const axiosSecure = useAxiossecure()
-   
+    const navigate=useNavigate()
+    const mutation = useMutation({
+        mutationFn: (newTodo) => {
+          return axiosSecure.post(url, newTodo)
+          .then(function (response) {
+              console.log(response);
+              if (response.data.insertedId) {
+                  Swal.fire({
+                      title: 'Success!',
+                      text: 'Your course has been added',
+                      icon: 'success',
+                      confirmButtonText: 'OK'
+                  })
+                  navigate('/dashboard/myclass')
+                  reset()
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+              Swal.fire({
+                  title: 'Something Went Wrong!',
+                  text: error,
+                  icon: 'error',
+                  confirmButtonText: 'OK'
+              })
+          });
+        },
+      })
     const {
         register,
         handleSubmit,
@@ -92,35 +119,15 @@ const Addclass = () => {
         const title = data.title;
         const name = data.name;
         const email = data.email;
+        const userphoto=user.photoURL
         const price = data.price;
         const description = data.description;
         const photo = data.photo
         const totalenrollment=0
-        const newclass = { title, name, email, price, description,status, photo,totalenrollment }
+        const newclass = {userphoto, title, name, email, price, description,status, photo,totalenrollment }
         console.log(newclass)
-        const url = `/classes`;
-        axiosSecure.post(url, newclass)
-            .then(function (response) {
-                console.log(response);
-                if (response.data.insertedId) {
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Your course has been added',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    })
-                    reset()
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-                Swal.fire({
-                    title: 'Something Went Wrong!',
-                    text: error,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                })
-            });
+        mutation.mutate( newclass)
+        
 
     }
     return (

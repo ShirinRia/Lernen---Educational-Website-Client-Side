@@ -1,6 +1,5 @@
 
 import useAllInstructor from "../../../../Hooks/useAllinstructor";
-import useTeacher from "../../../../Hooks/useTeacher";
 import Teacherrequestdat from "./Teacherrequestdat";
 
 
@@ -10,7 +9,7 @@ const Teacherrequest = () => {
     const [instructors,refetch] =useAllInstructor();
     return (
         <div>
-           <Teacherrequestdat  instructors={instructors}></Teacherrequestdat>
+           <Teacherrequestdat  instructors={instructors} refetch={refetch}></Teacherrequestdat>
             
         </div>
     );

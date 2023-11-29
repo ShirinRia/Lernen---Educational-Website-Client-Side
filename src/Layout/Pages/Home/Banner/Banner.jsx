@@ -13,6 +13,18 @@ import banner2 from '../../../../assets/02.jpg'
 import banner3 from '../../../../assets/03.jpg'
 import banner4 from '../../../../assets/04.png'
 import Carousel from 'react-elastic-carousel'
+const grey = {
+    50: '#F3F6F9',
+    100: '#E5EAF2',
+    200: '#DAE2ED',
+    300: '#C7D0DD',
+    400: '#B0B8C4',
+    500: '#9DA8B7',
+    600: '#6B7A90',
+    700: '#434D5B',
+    800: '#303740',
+    900: '#1C2025',
+  };
 const Banner = () => {
   
     return (
@@ -57,7 +69,7 @@ const Banner = () => {
 
         //         </div> */}
         //     </Carousel>
-       <Container maxWidth='xl' sx={{border:2,height:'80vh'}}> <Carousel
+       <Container maxWidth='xl' sx={{height:'80vh',bgcolor: grey[100]}}> <Carousel
        transitionMs={100} enableAutoPlay autoPlaySpeed={1500}
        style={{height:'100%'}}
    >

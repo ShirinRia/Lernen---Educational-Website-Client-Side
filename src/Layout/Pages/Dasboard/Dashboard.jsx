@@ -2,43 +2,70 @@
 import { Container, Divider } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import Box from '@mui/material/Box';
-import useAuth from "../../../Hooks/useAuth";
+import { IoLogOutOutline } from "react-icons/io5";
 import useAdmin from "../../../Hooks/useAdmin";
 import useStudent from "../../../Hooks/useStudent";
+import './Dashboard.css'
+import { FaHome } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
+import { SiGoogleclassroom } from "react-icons/si";
+import { RiProfileFill } from "react-icons/ri";
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { MdAddBox } from "react-icons/md";
+import useAuth from "../../../Hooks/useAuth";
 
-
+const grey = {
+    50: '#F3F6F9',
+    100: '#E5EAF2',
+    200: '#DAE2ED',
+    300: '#C7D0DD',
+    400: '#B0B8C4',
+    500: '#9DA8B7',
+    600: '#6B7A90',
+    700: '#434D5B',
+    800: '#303740',
+    900: '#1C2025',
+};
 const Dashboard = () => {
-   
+    const { logout } = useAuth()
+    const handlelogout = () => {
+        logout()
+            .then(() => { })
+            .catch(error => console.log(error))
+    }
     // const isAdmin = false
     // const isStudent=false
-    const {user}=useAuth()
+    // const {user}=useAuth()
     const [isAdmin] = useAdmin()
     const [isStudent] = useStudent()
     console.log(isStudent)
-console.log(isAdmin,isStudent)
-   
+    console.log(isAdmin, isStudent)
+
     return (
-        <Container sx={{ display: 'flex'}}>
+        <Container maxWidth='xl' sx={{ display: 'flex' }}>
             {/* dashboard side bar */}
-            <Box sx={{  minWidth:'250px', minHeight: '100vh', bgcolor: 'primary.main', color: 'white' }}>
+            <Box sx={{ minWidth: '250px', minHeight: '100vh', bgcolor: grey[600], color: 'white' }}>
                 <ul className="menu p-4">
                     {
                         isAdmin ? <>
-                            <NavLink to={'/dashboard/instructors'}>
-                                {/* <FaHome></FaHome> */}
-                                <p style={{ color: 'white' }}>Teacher Request</p>
+                            <NavLink to={'/'} >
+
+                                <p style={{ color: 'white' }}> <FaHome></FaHome> Home</p>
                             </NavLink>
-                            <NavLink to={'/dashboard/users'}>
-                                {/* <FaHome></FaHome> */}
-                                <p style={{ color: 'white' }}>Users</p>
+                            <NavLink to={'/dashboard/instructors'} >
+
+                                <p style={{ color: 'white' }}><LiaChalkboardTeacherSolid /> Teacher Request</p>
                             </NavLink>
-                            <NavLink to={'/dashboard/allclass'}>
-                                {/* <FaHome></FaHome> */}
-                                <p style={{ color: 'white' }}>All classes</p>
+                            <NavLink to={'/dashboard/users'} >
+
+                                <p style={{ color: 'white' }}><FaUsers /> Users</p>
                             </NavLink>
-                            <NavLink to={'/dashboard/profile'}>
-                                {/* <FaHome></FaHome> */}
-                                <p style={{ color: 'white' }}>Profile</p>
+                            <NavLink to={'/dashboard/allclass'} >
+
+                                <p style={{ color: 'white' }}><SiGoogleclassroom /> All classes</p>
+                            </NavLink>
+                            <NavLink to={'/dashboard/profile'} >
+                                <p style={{ color: 'white' }}><RiProfileFill /> Profile</p>
                             </NavLink>
 
                         </>
@@ -46,59 +73,49 @@ console.log(isAdmin,isStudent)
                                 {isStudent ?
 
                                     <>
-
-                                        <NavLink >
-                                            {/* <FaHome></FaHome> */}
-                                            <p style={{ color: 'white' }}>Home</p>
+                                        <NavLink to={`/`} >
+                                            <p style={{ color: 'white' }}> <FaHome></FaHome> Home</p>
                                         </NavLink>
-                                        <NavLink to={`/dashboard/enroll/`}>
-                                            {/* <FaHome></FaHome> */}
-                                            <p style={{ color: 'white' }}>My enroll class</p>
+                                        <NavLink to={`/dashboard/enroll/`} >
+                                            <p style={{ color: 'white' }}><SiGoogleclassroom /> My enroll class</p>
                                         </NavLink>
-                                        <NavLink to={'/dashboard/profile'}>
-                                            {/* <FaHome></FaHome> */}
-                                            <p style={{ color: 'white' }}>Profile</p>
+                                        <NavLink to={'/dashboard/profile'} >
+                                            <p style={{ color: 'white' }}><RiProfileFill /> Profile</p>
                                         </NavLink>
-
-
                                     </>
                                     : <>
+                                        <NavLink to={'/'} >
 
-                                        <NavLink to={'/dashboard/addclass'}>
-                                            {/* <FaHome></FaHome> */}
-                                            <p style={{ color: 'white' }}>Add Class</p>
+                                            <p style={{ color: 'white' }}> <FaHome></FaHome> Home</p>
                                         </NavLink>
-                                        <NavLink to={'/dashboard/myclass'}>
-                                            {/* <FaHome></FaHome> */}
-                                            <p style={{ color: 'white' }}>My Class</p>
+                                        <NavLink to={'/dashboard/addclass'} >
+
+                                            <p style={{ color: 'white' }}><MdAddBox /> Add Class</p>
                                         </NavLink>
-                                        <NavLink to={'/dashboard/profile'}>
-                                            {/* <FaHome></FaHome> */}
-                                            <p style={{ color: 'white' }}>Profile</p>
+                                        <NavLink to={'/dashboard/myclass'} >
+
+                                            <p style={{ color: 'white' }}><SiGoogleclassroom /> My Class</p>
+                                        </NavLink>
+                                        <NavLink to={'/dashboard/profile'} >
+                                            <p style={{ color: 'white' }}><RiProfileFill /> Profile</p>
                                         </NavLink>
                                     </>
                                 }
                             </>
-
-
                     }
+                    <Divider sx={{ bgcolor: 'white', mr: 2, mb: 2 }} />
 
-                    <Divider sx={{ bgcolor: 'white',mr:2,mb:2 }} />
-                   
-                      <Box sx={{display:'flex', flexDirection:'column',gap:2}}>
-                      <NavLink to="/" style={{ color: 'white' }}>
-                            {/* <FaHome></FaHome> */}
-                            Home</NavLink>
-                    
-                   
-                        <NavLink to="/order/salad" style={{ color: 'white' }}>
-                            {/* <FaSearch></FaSearch> */}
-                            Menu</NavLink></Box>  
-                   
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                        <NavLink to="/" onClick={handlelogout} style={{ color: 'white', display: 'flex', alignItems: 'center' }}>
+                            <IoLogOutOutline />
+                            Logout </NavLink>
+
+                    </Box>
+
                 </ul>
             </Box>
             {/* dashboard content */}
-            <Box sx={{ p: 8, flexGrow: 1, border: 1, width: '100%' }}>
+            <Box sx={{ py: 4, px: 8, flexGrow: 1, width: '100%' }}>
                 <Outlet></Outlet>
             </Box>
         </Container>

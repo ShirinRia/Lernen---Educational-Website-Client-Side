@@ -1,7 +1,8 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types'; // ES6
-import useAuth from '../Hooks/useAuth';
+
 import RingLoader from "react-spinners/RingLoader";
+import useAuth from '../Hooks/useAuth';
 const PrivateRoute = ({children}) => {
     const {user,loading}=useAuth()
     const location=useLocation()

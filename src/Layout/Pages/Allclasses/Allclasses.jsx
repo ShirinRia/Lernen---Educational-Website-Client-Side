@@ -4,6 +4,7 @@ import Classcard from "./Classcard";
 import { useState } from "react";
 import './Allclasses.css'
 import usePaginationclasses from "../../../Hooks/usePaginationclasses";
+import Showcard from "../Teach_on_Lernen/Showcard";
 
 const Allclasses = () => {
    
@@ -52,8 +53,7 @@ const Allclasses = () => {
                 approvedClasses.map(classe => <Classcard key={classe._id} classe={classe} isallclassnav={isallclassnav}></Classcard>)
             }
             </Box>
-           
-            <div className='pagination'>
+           {!approvedClasses.length? <Showcard title={'Class will be added soon'}></Showcard> : <div className='pagination'>
                 {/* <p>Current page: {currentPage}</p> */}
                 <button onClick={handlePrevPage}>Prev</button>
                 {
@@ -70,7 +70,8 @@ const Allclasses = () => {
                     <option value="20">20</option>
                     <option value="50">50</option>
                 </select>
-            </div>
+            </div>}
+            
 
         </Container >
     );

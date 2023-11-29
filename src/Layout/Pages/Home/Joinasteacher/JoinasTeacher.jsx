@@ -1,14 +1,8 @@
 import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { Container, Grid } from '@mui/material';
-import Paper from '@mui/material/Paper';
+import { Container } from '@mui/material';
 import instructor from '../../../../assets/instructor.jpg'
-
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
 const JoinasTeacher = () => {
     const style = {
 
@@ -39,7 +33,7 @@ const JoinasTeacher = () => {
                     </Typography>
                     <Typography textAlign='left'>Instructors from around the world teach millions of learners on Lernen. We provide the tools and skills to teach what you love.Instructors from around the world teach millions of learners on Lernen. We provide the tools and skills to teach what you love. Trusted by over 15,000 companies and millions of learners around the world
                     </Typography>
-                    <Button variant="contained" disableElevation>
+                    <Button href={'/techon'} variant="contained" >
                         Start Teaching Today
                     </Button>
                 </Box>
