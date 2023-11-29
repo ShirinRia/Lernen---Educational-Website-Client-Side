@@ -5,6 +5,9 @@ import Partners from "./Partners/Partners";
 import BasicCard from "../Dasboard/Teacher/BasicCard";
 import useAllusers from "../../../Hooks/useAllusers";
 import useAllclass from "../../../Hooks/useAllclass";
+import Featuredcourse from "./Featuredcourse/Featuredcourse";
+import Reviews from "./Reviews/Reviews";
+import Extra1 from "./Extra1/Extra1";
 
 
 const Home = () => {
@@ -23,7 +26,10 @@ const Home = () => {
                 <BasicCard title={'Total enrollment'} value={totalenrollment} />
                 
             </Box>
+            <Featuredcourse/>
             <JoinasTeacher />
+            <Extra1/>
+           <Reviews/>
         </div>
     );
 };

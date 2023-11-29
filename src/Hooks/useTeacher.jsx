@@ -5,7 +5,7 @@ import useAxiossecure from "./useAxios/useAxiossecure";
 const useTeacher = () => {
     const { user, loading } = useAuth();
     const axiosSecure = useAxiossecure();
-    const { data: isInstructor, isPending: isStudentLoading } = useQuery({
+    const { data: isInstructor, isPending: isInstructorLoading } = useQuery({
         queryKey: [user?.email, 'isTeacher'],
         enabled: !loading,
         queryFn: async () => {
@@ -15,7 +15,7 @@ const useTeacher = () => {
             return res.data?.Instructor;
         }
     })
-    return [isInstructor, isStudentLoading]
+    return [isInstructor, isInstructorLoading]
     // return [isAdmin]
 };
 

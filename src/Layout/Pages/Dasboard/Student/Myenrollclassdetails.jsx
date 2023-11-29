@@ -18,6 +18,7 @@ import { palette } from '@mui/system';
 import { createTheme } from '@mui/material/styles';
 import { makeStyles } from "@material-ui/core/styles";
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
+import useAuth from "../../../../Hooks/useAuth";
 const useStyles = makeStyles((theme) => ({
 
     typo: {
@@ -142,6 +143,7 @@ const [newRating,setnewrating]=useState()
 
     ];
     const axiosSecure = useAxiossecure()
+    const {user}=useAuth()
     const handlesubmission=(count,id,cid)=>{
         const url=`/course/assignment/${id}/${cid}`
         const newsubmission = {
@@ -165,9 +167,12 @@ const [newRating,setnewrating]=useState()
         console.log(data)
 
         const description = data.description;
+        const name=user?.name
+        const photo=user?.photoURL
+        const email=user?.email
         const rating=newRating
         const courseid=id
-        const feedback = { description, rating, courseid}
+        const feedback = { description, rating, courseid,name,photo,email}
         console.log(feedback)
 
         const url = `/feedbacks`;

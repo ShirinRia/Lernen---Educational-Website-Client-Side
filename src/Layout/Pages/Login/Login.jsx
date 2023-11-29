@@ -6,13 +6,13 @@ import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import TextField from "@material-ui/core/TextField";
 import { palette } from '@mui/system';
-import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import { createTheme } from '@mui/material/styles';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
-
+import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiospublic from "../../../Hooks/useAxios/useAxiospublic";
+import Sociallogin from "../../Components/SocialLogin/Sociallogin";
 
   const useStyles = makeStyles((theme) => ({
    
@@ -24,7 +24,8 @@ import useAxiospublic from "../../../Hooks/useAxios/useAxiospublic";
     }
   }));
 const Login = () => {
-    const {signin}=  useAuth()
+    const {signin,signgoogle}=  useAuth()
+    const location = useLocation()
     const classes = useStyles();
     const {
         register,
@@ -33,6 +34,7 @@ const Login = () => {
     } = useForm()
     const axiosPublic=useAxiospublic()
     const navigate = useNavigate()
+    const url = `/users`;
     const onSubmit = async(data) => {console.log(data)
         const email=data.email
         signin(data.email, data.password)
@@ -45,7 +47,7 @@ const Login = () => {
                 email,
                 lastloggedat: currentuser?.metadata?.lastSignInTime
             }
-            const url = `/users`;
+            
             axiosPublic.patch(url, olduser)
                 .then(response => {
                     console.log(response);
@@ -79,7 +81,54 @@ const Login = () => {
                 })
         });
     }
+// google
+const handlegoogle = () => {
+    signgoogle()
+        .then((result) => {
 
+            // The signed-in user info.
+            const user = result.user;
+            console.log(user)
+            const email = user.email
+            const olduser = {
+                email,
+                lastloggedat: user?.metadata?.lastSignInTime
+            }
+
+
+            axiosPublic.patch(url, olduser)
+                .then(response => {
+                    console.log(response);
+                    if (response.data.modifiedCount > 0) {
+                        Swal.fire({
+                            title: 'Sign In!',
+                            text: 'Sign In with google Successfully',
+                            icon: 'success',
+                            confirmButtonText: 'Explore'
+                        })
+                    }
+                })
+
+            navigate(location?.state ? location.state : '/')
+        })
+        .catch((error) => {
+            
+            const errorMessage = error.message;
+
+            if (errorMessage === "Firebase: Error (auth/invalid-login-credentials).")
+                
+                Swal.fire({
+                    title: "Invalid Credential",
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+        });
+
+}
     return (
         <Container sx={{ width: '100vw',  mx: "auto", my:'45px' }}>
             <Box >
@@ -98,7 +147,7 @@ const Login = () => {
                     }}
                     >
                         
-                        <button  style={{ marginBottom:"15px",marginTop:"25px", width:"50%", padding:'15px 0' }}> 
+                        <button onClick={handlegoogle}  style={{ marginBottom:"15px",marginTop:"25px", width:"50%", padding:'15px 0' }}> 
                             <FcGoogle /> Continue with Google </button>
                         {/* register your input into the hook by invoking the "register" function */}
                         {/* <input defaultValue="test" {...register("example")} /> */}

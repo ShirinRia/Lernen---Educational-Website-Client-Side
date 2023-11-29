@@ -18,6 +18,8 @@ import Myclass from "../Layout/Pages/Dasboard/Teacher/Myclass";
 import Teacherclassdetails from "../Layout/Pages/Dasboard/Teacher/Teacherclassdetails";
 import Myenrollclassdetails from "../Layout/Pages/Dasboard/Student/Myenrollclassdetails";
 
+import Classs from "../Layout/Pages/Dasboard/Adminallclass/Classs";
+
 
 const Routes = createBrowserRouter([
     {
@@ -106,12 +108,17 @@ const Routes = createBrowserRouter([
                 element: <Teacherclassdetails/>,
                 loader: ({ params }) => fetch(`http://localhost:5000/myclass/${params.id}`)
             },
+            {
+                path: "classs/:id",
+        
+                element: <Classs/>,
+                loader: ({ params }) => fetch(`http://localhost:5000/reviews/${params.id}`)
+            },
 
         ],
         // errorElement: <Errorpage></Errorpage>,
-
-
     },
+    
 ]);
 
 export default Routes;

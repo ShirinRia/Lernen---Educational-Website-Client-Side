@@ -2,6 +2,7 @@ import useAxiospublic from '../../../../Hooks/useAxios/useAxiospublic';
 import useAuth from '../../../../Hooks/useAuth';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
+import { SiProgress } from "react-icons/si";
 import { Button, Container } from "@mui/material";
 import Swal from 'sweetalert2'
 import { RxCrossCircled } from "react-icons/rx";
@@ -23,7 +24,7 @@ const Classdata = ({ classe, refetch }) => {
     {
       field: 'name',
       headerName: 'Name',
-      width: 150,
+      width: 140,
       editable: true,
     },
     {
@@ -52,19 +53,21 @@ const Classdata = ({ classe, refetch }) => {
       headerName: 'Status',
 
       sortable: false,
-      width: 100,
+      width: 90,
 
     },
     {
       field: 'Action',
-      width: 150,
+      width: 200,
       renderCell: (cellValues) => {
         // console.log(cellValues)
         return (
           <div style={{ display: 'flex' }}>
-            <Button onClick={() => handlechange(cellValues.id)} ><FaCheckCircle style={{ fontSize: '30px' }} /></Button>
+            <Button onClick={() => handlechange(cellValues.id)} ><FaCheckCircle style={{ fontSize: '24px' }} /></Button>
             {/* <Button ><PiCrosshairDuotone /></Button> */}
-            <Button onClick={() => handlechange2(cellValues.id)}><RxCrossCircled style={{ fontSize: '30px' }} /></Button>
+            <Button onClick={() => handlechange2(cellValues.id)}><RxCrossCircled style={{ fontSize: '24px' }} /></Button>
+           
+            <Button href={`classs/${cellValues.id}`}><SiProgress style={{ fontSize: '24px' }} /></Button>
           </div>
         )
       }
