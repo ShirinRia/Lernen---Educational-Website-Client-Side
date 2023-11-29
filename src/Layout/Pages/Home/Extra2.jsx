@@ -1,9 +1,22 @@
-import banner from '../../../../assets/banner.jpg'
+import banner from '../../../assets/banner.jpg'
 import Box from '@mui/material/Box';
 
 import Typography from '@mui/material/Typography';
 
+const style = {
 
+    width: '100vw',
+    height: '80vh',
+    bgcolor: 'background.paper',
+    display: 'flex',
+    justifyItems: 'center',
+
+    backgroundSize: "cover",
+    alignItems: 'center',
+    backgroundImage: `url(${banner})`,
+    backgroundRepeat: "no-repeat",
+
+};
 
 const Extra2 = () => {
     return (
