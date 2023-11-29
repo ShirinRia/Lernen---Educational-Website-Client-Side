@@ -7,6 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
 const Extracard = ({service}) => {
+    
     const theme = useTheme();
     return (
         <Card sx={{ display: 'flex',mx:12 }}>

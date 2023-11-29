@@ -1,0 +1,8 @@
+.pagination .selected {
+    background-color: orange;
+}
+.pagination{
+    text-align: center;
+    margin-top: '16px';
+    border:'2px solid red'
+}
