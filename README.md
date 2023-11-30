@@ -1,8 +1,12 @@
-# React + Vite
+# https://stirring-bunny-6b57ab.netlify.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Student and Class Management 
 
-Currently, two official plugins are available:
+This document provides a comprehensive overview of the features and specifications for the Student and Class Management System. The system is built using the MERN (MongoDB, Express.js, React, Node.js) stack to create an online platform for learning various skills.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- The website is responsive, ensuring a seamless experience across mobile, tablet, and desktop devices.
+- 3 roles {admin, student, instructor}
+- Implemented JWT on login and stored the token.
+- Added tanstack mutation for every post request.
+- Implemented react-hook-form in all form pages.
+- Necessary commits made for each implemented feature.
