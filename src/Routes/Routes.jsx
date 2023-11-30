@@ -20,13 +20,14 @@ import Myenrollclassdetails from "../Layout/Pages/Dasboard/Student/Myenrollclass
 
 import Classs from "../Layout/Pages/Dasboard/Adminallclass/Classs";
 import PrivateRoute from "./PrivateRoute";
+import Errorpage from "../Layout/Components/Errorpage/Errorpage";
 
 
 const Routes = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
-        // errorElement: <Errorpage></Errorpage>,
+        errorElement: <Errorpage/>,
         children: [
             {
                 path: "/",
@@ -67,6 +68,7 @@ const Routes = createBrowserRouter([
     {
         path: "dashboard",
         element: <PrivateRoute><Dashboard /></PrivateRoute>,
+        errorElement: <Errorpage/>,
         children: [
             {
                 path: "profile",

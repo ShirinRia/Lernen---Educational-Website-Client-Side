@@ -19,7 +19,7 @@ const Classdata = ({ classe, refetch }) => {
       align: 'center',
       width: 150,
       editable: true,
-      align:'center',
+     
           
       renderCell: (params) => <img src={params.value} style={{ width: '100%', height: '100%' }} />, // renderCell will render the component
     },

@@ -10,7 +10,7 @@ const Extracard = ({service}) => {
     
     const theme = useTheme();
     return (
-        <Card sx={{ display: 'flex',mx:12 }}>
+        <Card data-aos={`${service.direc}`} data-aos-duration="2000" data-aos-easing="ease-in-sine" data-aos-delay="100" sx={{ display: 'flex',mx:12 }}>
          
             <CardContent sx={{ flex: '1  auto' }}>
               <Typography component="div" variant="h5">

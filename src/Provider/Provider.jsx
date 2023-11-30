@@ -2,18 +2,21 @@ import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStat
 import { createContext, useEffect, useState } from "react";
 import app from "../Firebase/Firebase.config"
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import useAxiospublic from "../Hooks/useAxios/useAxiospublic";
+
 
 export const Authcontext = createContext(null)
 const googleprovider = new GoogleAuthProvider();
+
 const auth = getAuth(app)
 const Provider = ({ children }) => {
+    const axiosPublic = useAxiospublic()
     const [user, setuser] = useState(null)
-   
+
     const [loading, setloading] = useState(true)
     // const [theme, settheme] = useState(false)
 
-   
+
     const createuser = (email, password) => {
         setloading(true)
         return createUserWithEmailAndPassword(auth, email, password)
@@ -38,12 +41,11 @@ const Provider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
             const usermail = currentuser?.email || user?.email
             setuser(currentuser)
-
             const loggedinuser = { email: usermail }
             setloading(false)
             if (currentuser) {
 
-                axios.post('https://surplus-server.vercel.app/jwt', loggedinuser, { withCredentials: true },
+                axiosPublic.post('http://localhost:5000/jwt', loggedinuser, { withCredentials: true },
                 )
                     .then(res => {
                         console.log(res.data);
@@ -51,8 +53,8 @@ const Provider = ({ children }) => {
 
             }
             else {
-                axios.post('https://surplus-server.vercel.app/logout', loggedinuser, { withCredentials: true },
-
+                axiosPublic.post('http://localhost:5000/logout', loggedinuser, { withCredentials: true },
+                   
                 )
                     .then(res => {
                         console.log(res.data);
@@ -60,10 +62,11 @@ const Provider = ({ children }) => {
                     })
             }
 
+
         });
 
         return () => unsubscribe()
-    }, [user?.email])
+    }, [axiosPublic, user?.email])
     const authinfo = {
         user,
         createuser,
