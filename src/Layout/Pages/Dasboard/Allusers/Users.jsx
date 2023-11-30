@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import useAxiossecure from '../../../../Hooks/useAxios/useAxiossecure';
 import { useState } from 'react';
 const Users = ({ users,refetch }) => {
-  const [changestatus,setchangestatus]=useState(false)
+
   const axiosSecure = useAxiossecure();
   const handlemakeadmin = (id,name) => {
     Swal.fire({
@@ -99,7 +99,7 @@ const Users = ({ users,refetch }) => {
      
       console.log(users)
       return (
-        <Box sx={{ height: 400, width: '100%' }}>
+        <Box sx={{ height: '100%', width: '100%' }}>
       <DataGrid
     
         rows={users}

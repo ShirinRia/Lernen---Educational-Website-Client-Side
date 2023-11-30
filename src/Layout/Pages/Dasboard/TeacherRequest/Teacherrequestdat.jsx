@@ -117,9 +117,9 @@ const Teacherrequestdat = ({ instructors,refetch }) => {
       email: user?.email,
       id: id_,
       status: 'Rejected',
-      role: 'Student'
+      // role: 'Student'
     }
-    const url = `/updateinstructorinfo`;
+    const url = `/updateinstructorinforejected`;
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -133,9 +133,9 @@ const Teacherrequestdat = ({ instructors,refetch }) => {
         axiosPublic.patch(url, info)
           .then(response => {
             console.log(response.data);
-            const count = response.data.reduce((total, item) => total + item.modifiedCount, 0);
-            console.log(count)
-            if (count > 0) {
+            // const count = response.data.reduce((total, item) => total + item.modifiedCount, 0);
+            // console.log(count)
+            if (response.data.modifiedCount > 0) {
               refetch()
               
               Swal.fire({

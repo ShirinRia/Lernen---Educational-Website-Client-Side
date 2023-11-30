@@ -92,50 +92,49 @@ const Login = () => {
 // google
 const handlegoogle = () => {
     signgoogle()
-        .then((result) => {
-             // The signed-in user info.
-             const user = result.user;
-             const email = user.email
-             const role = 'Student'
-             const name = user.displayName
-             let photo = user.photoURL
-            //  const createat = user.metadata.creationTime
-             const newuserdata = { name,role, email, photo,
-                //  createdAt: createat
-                 }
-             console.log(newuserdata);
-             axiosPublic.put(url, newuserdata)
-                 .then(function (response) {
-                     console.log(response);
-                     if (response.data.insertedId) {
-                         Swal.fire({
-                             title: 'Success!',
-                             text: 'Registered with email Successfully',
-                             icon: 'success',
-                             confirmButtonText: 'OK'
-                         })
-                       
-                    }
-                })
+    .then((result) => {
 
-            navigate(location?.state ? location.state : '/')
-        })
-        .catch((error) => {
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user)
+        const email = user.email
+        const olduser = {
+            email,
+            lastloggedat: user?.metadata?.lastSignInTime
+        }
+
+
+    axiosPublic.patch(url, olduser)
+            .then(response => {
+                console.log(response);
+                if (response.data.modifiedCount > 0) {
+                    Swal.fire({
+                        title: 'Sign In!',
+                        text: 'Sign In with google Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Explore'
+                    })
+                }
+            })
+
+        navigate(location?.state ? location.state : '/')
+    })
+    .catch((error) => {
+        
+        const errorMessage = error.message;
+
+        if (errorMessage === "Firebase: Error (auth/invalid-login-credentials).")
             
-            const errorMessage = error.message;
-
-            if (errorMessage === "Firebase: Error (auth/invalid-login-credentials).")
-                
-                Swal.fire({
-                    title: "Invalid Credential",
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp'
-                    }
-                })
-        });
+            Swal.fire({
+                title: "Invalid Credential",
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+    });
 
 }
     return (
@@ -156,19 +155,19 @@ const handlegoogle = () => {
                     }}
                     >
                         
-                        <Button onClick={handlegoogle}  sx={{ marginBottom:"15px",marginTop:"25px", border:1,width: { xs: '100%', md: '50%' },padding:'15px 0' }}> 
+                        <Button onClick={handlegoogle}  sx={{ marginBottom:"15px",marginTop:"25px", border:1,width:'50%' ,padding:'15px 0' }}> 
                             <FcGoogle />   Continue with Google </Button>
                         {/* register your input into the hook by invoking the "register" function */}
                         {/* <input defaultValue="test" {...register("example")} /> */}
                         <TextField
-                            style={{ padding: "0",marginBottom:"15px", width: { xs: '100%', md: '50%' }   }}
+                            style={{ padding: "0",marginBottom:"15px", width: '50%'   }}
                             label="Email"
                             variant="outlined"
                             {...register("email")}
                         />
                         {/* include validation with required or other standard HTML validation rules */}
                         <TextField
-                            style={{ padding: "0",marginBottom:"15px", width:{xs:'100%', md: '100%' }  }}
+                            style={{ padding: "0",marginBottom:"15px", width:'50%'   }}
                             label="Password"
                             variant="outlined"
                             {...register("password")}
@@ -179,7 +178,7 @@ const handlegoogle = () => {
                         {errors.exampleRequired && <span>This field is required</span>}
                        
                         <Button
-                            sx={{ padding: "15px 0px", width: { xs: '100%', md: '50%' }, background:"#dd33fa" , outline:'0' ,color:"white" }}
+                            sx={{ padding: "15px 0px", width:  '50%' , background:"#dd33fa" , outline:'0' ,color:"white" }}
                            
                             // variant="outlined"
 

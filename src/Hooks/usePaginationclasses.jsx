@@ -12,7 +12,6 @@ const usePaginationclasses = (currentpage,size) => {
     queryKey: ["Paginationclasses"],  // should be unique
     queryFn: async () => {
       
-        // console.log(user?.email)
         const res = await axiossecure.get(`/Paginationclasses?page=${currentpage}&size=${size}`)
         return res.data
       },

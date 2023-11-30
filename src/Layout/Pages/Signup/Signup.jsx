@@ -144,44 +144,44 @@ const Signup = () => {
                 })
             });
     }
-    // const handlegoogle = () => {
-    //     signgoogle()
-    //         .then((result) => {
+    const handlegoogle = () => {
+        signgoogle()
+            .then((result) => {
 
-    //             // The signed-in user info.
-    //             const user = result.user;
-    //             const email = user.email
-    //             const role = 'Student'
-    //             const name = user.displayName
-    //             let photo = user.photoURL
-    //             const createat = user.metadata.creationTime
-    //             const newuserdata = { name,role, email, photo, createdAt: createat }
-    //             console.log(newuserdata);
-    //             axiosPublic.post(url, newuserdata)
-    //                 .then(function (response) {
-    //                     console.log(response);
-    //                     if (response.data.insertedId) {
-    //                         Swal.fire({
-    //                             title: 'Success!',
-    //                             text: 'Registered with email Successfully',
-    //                             icon: 'success',
-    //                             confirmButtonText: 'OK'
-    //                         })
-    //                     }
-    //                 })
-    //                 .catch(function (error) {
-    //                     console.log(error);
-    //                 });
+                // The signed-in user info.
+                const user = result.user;
+                const email = user.email
+                const role = 'Student'
+                const name = user.displayName
+                let photo = user.photoURL
+                const createat = user.metadata.creationTime
+                const newuserdata = { name,role, email, photo, createdAt: createat }
+                console.log(newuserdata);
+                axiosPublic.post(url, newuserdata)
+                    .then(function (response) {
+                        console.log(response);
+                        if (response.data.insertedId) {
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Registered with email Successfully',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            })
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
 
-    //             navigate("/");
+                navigate("/");
 
-    //         }).catch((error) => {
+            }).catch((error) => {
 
-    //             console.log(error.message);
+                console.log(error.message);
 
-    //         });
+            });
 
-    // }
+    }
     return (
         <Box sx={{ width: '100vw', mx: 'auto', my: 4 }}>
             <Container maxWidth="lg" >
@@ -199,8 +199,8 @@ const Signup = () => {
                         // bgcolor: 'green'
                     }}
                     >
-                        {/* <button onClick={handlegoogle} style={{ marginBottom: "15px", width: "50%", padding: '15px 0' }}>
-                            <FcGoogle /> Continue with Google </button> */}
+                        <button onClick={handlegoogle} style={{ marginBottom: "15px", width: "50%", padding: '15px 0' }}>
+                            <FcGoogle /> Continue with Google </button>
                         <Box sx={{ display: 'flex', width: '50%', gap: 2, marginBottom: "15px" }}>
                             <TextField
                                 style={{ padding: "0", width: "50%" }}
