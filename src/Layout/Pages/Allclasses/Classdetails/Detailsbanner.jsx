@@ -28,9 +28,10 @@ const Detailsbanner = ({ specclass }) => {
 
     const style = {
 
-        height: '80vh',
+        height: {xs:'100vh',md:'80vh'},
         bgcolor: 'background.paper',
         display: 'flex',
+        // flexDirection:'column',
         justifyItems: 'center',
         backgroundColor: grey[900],
         color: 'white',
@@ -43,7 +44,7 @@ const Detailsbanner = ({ specclass }) => {
     return (
 
         <Box sx={style}>
-            <Box sx={{ textAlign: 'left', mr: 10, ml: 5, px: 5, width: '60%' }}>
+            <Box sx={{ textAlign: 'left', mr: 10, ml: 5, px: 5, width: {xs:'100%',md:'60%'} }}>
                 {/* <p >
                     category
                 </p> */}
@@ -64,7 +65,7 @@ const Detailsbanner = ({ specclass }) => {
             {/* <Box sx={{ textAlign: 'left', width: '33%', height:'500px', position:'absolute', top:'10%', right:'5%', ml: 10, p: 5, boxShadow: 5, }}> */}
 
             <Box sx={{ textAlign: 'left', width: '40%' }}>
-                <Card sx={{ width: 345, position: 'absolute', top: '10%', right: '5%' }}>
+                <Card sx={{ width: 345, position: 'absolute', top: {xs:'110%',md:'10%'}, right: '5%' }}>
 
                     <CardMedia
                         component="img"

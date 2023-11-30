@@ -119,12 +119,12 @@ const CheckoutForm = ({ specclass }) => {
 
     return (
 
-        <Box sx={{ width: '100%',border:1,p:4,borderRadius:8 }}>
-            <Box sx={{ display: 'flex',mb:4, justifyContent: 'center',fontSize:28,fontWeight:600 }}>
+        <Box sx={{ width: {xs:'70%',md:'100%'},border:1,p:4,borderRadius:8 }}>
+            <Box sx={{ display: 'flex',  mb:4, justifyContent: 'center',fontSize:28,fontWeight:600 }}>
             <p>Pay Only {specclass.price} and Start Learning!!!</p>
             </Box>
             
-            <Box sx={{ display: 'flex',mb:4, justifyContent: 'space-between',gap:10,fontSize:20 }}>
+            <Box sx={{ display: 'flex',mb:4,flexDirection:{xs:'column',md:'row'},  justifyContent: {xs:'center',md:'space-between'},fontSize:20 }}>
                 <p >{specclass.title}</p>
                 <p>$ {specclass.price}</p>
             </Box>

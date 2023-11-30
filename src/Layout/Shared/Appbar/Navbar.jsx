@@ -49,7 +49,7 @@ const Navbar = () => {
       .then(() => { setAnchorElUser(null); })
       .catch(error => console.log(error))
   }
-  const pages = <>
+  const pages = <Box sx={{display:'grid',gridTemplateColumns: {sm:'repeat(1, 1fr)', md:'repeat(4, 1fr)'}}}>
     <NavLink style={{ mr: '4px' }} to={'/'}>Home</NavLink>
     <NavLink style={{ mr: '4px' }} to={'/allclass'}>All Classes</NavLink>
     <NavLink style={{ mr: '4px' }} to={'/techon'}>Tech on Lernen</NavLink>
@@ -62,7 +62,7 @@ const Navbar = () => {
 
 
     </>} */}
-  </>
+ </Box>
 
   const settings = <>
     {user &&
@@ -118,7 +118,7 @@ const Navbar = () => {
             LERNEN
           </Typography>
 
-          <Box sx={{  display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{  display: { xs: 'flex', md: 'none' }}}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -145,7 +145,7 @@ const Navbar = () => {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
-                color: 'white',
+                color: 'black',
               }}
             >
               {pages}
@@ -163,12 +163,12 @@ const Navbar = () => {
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              // display: { xs: 'flex', md: 'none' },
+              display: { md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color: 'darkblue',
               textDecoration: 'none',
             }}
           >

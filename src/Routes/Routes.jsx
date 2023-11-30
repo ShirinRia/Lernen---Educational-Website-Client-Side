@@ -54,12 +54,12 @@ const Routes = createBrowserRouter([
             {
                 path: "details/:id",
                 element: <PrivateRoute><Classdetails /></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/class/${params.id}`)
+                loader: ({ params }) => fetch(`https://server-ruby-pi.vercel.app/class/${params.id}`)
             },
             {
                 path: "payment/:id",
                 element: <Payment />,
-                loader: ({ params }) => fetch(`http://localhost:5000/class/${params.id}`)
+                loader: ({ params }) => fetch(`https://server-ruby-pi.vercel.app/class/${params.id}`)
             },
 
         ],
@@ -98,7 +98,7 @@ const Routes = createBrowserRouter([
             {
                 path: "myenrollclass/:id",
                 element: <Myenrollclassdetails />,
-                loader: ({params }) => fetch(`http://localhost:5000/assignments/${params.id}`)
+                loader: ({params }) => fetch(`https://server-ruby-pi.vercel.app/assignments/${params.id}`)
             },
 
             {
@@ -109,13 +109,13 @@ const Routes = createBrowserRouter([
             {
                 path: "myclass/:id",
                 element: <Teacherclassdetails/>,
-                loader: ({ params }) => fetch(`http://localhost:5000/myclass/${params.id}`)
+                loader: ({ params }) => fetch(`https://server-ruby-pi.vercel.app/myclass/${params.id}`)
             },
             {
                 path: "classs/:id",
         
                 element: <Classs/>,
-                loader: ({ params }) => fetch(`http://localhost:5000/reviews/${params.id}`)
+                loader: ({ params }) => fetch(`https://server-ruby-pi.vercel.app/reviews/${params.id}`)
             },
 
         ],

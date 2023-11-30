@@ -32,7 +32,7 @@ const style = {
 const Extra2 = () => {
     return (
         <Box sx={style}>
-            <Box sx={{ textAlign: 'left', width: '33%', ml: 10, p: 5, boxShadow: 5, }}>
+            <Box sx={{ textAlign: 'left', width: {xs:'100%',md:'33%'}, ml: 10, p: 5, boxShadow: 5, }}>
                 <Typography variant="h3" component="h2">
                     The skills you need
                 </Typography>

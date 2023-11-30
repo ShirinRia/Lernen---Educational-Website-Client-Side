@@ -32,7 +32,7 @@ const Home = () => {
             <Banner />
             <Partners />
             <Extra2 />
-            <Box sx={{ display: 'flex', gap: 8, my: 8, justifyContent: 'center',}}>
+            <Box sx={{ display: 'flex', flexDirection:{xs:'column',md:'row'}, gap: 8, my: 8, justifyContent: 'center',}}>
 
                 <BasicCard title={'Total User'} value={users.length} color={"blanchedalmond"} />
                 <BasicCard title={'Total Classes'} value={classes.length} color={"ButtonShadow"}  />

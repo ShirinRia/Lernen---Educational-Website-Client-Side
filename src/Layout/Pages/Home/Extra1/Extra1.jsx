@@ -47,7 +47,7 @@ const Extra1 = () => {
             </Typography>
 
             <Box sx={{
-                display: 'grid', justifyContent: 'center', gridTemplateColumns: 'repeat(2, 1fr)', columnGap: 1,
+                display: 'grid',  justifyContent: 'center',  gridTemplateColumns: {sm:'repeat(1, 1fr)', md:'repeat(2, 1fr)'}, columnGap: 1,
                 rowGap: 3,
             }}>
                 {services.map(service => <Extracard key={service.id} service={service}></Extracard>)}

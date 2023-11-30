@@ -46,7 +46,7 @@ const Allclasses = () => {
         }}>
             <Box sx={{
                 mb:8,
-               display: 'grid', justifyContent: 'center', gridTemplateColumns: 'repeat(4, 1fr)', columnGap: 2,
+               display: 'grid', justifyContent: 'center', gridTemplateColumns: {sm:'repeat(1, 1fr)', md:'repeat(4, 1fr)'}, columnGap: 2,
                 rowGap: 3,
             }}>
  {

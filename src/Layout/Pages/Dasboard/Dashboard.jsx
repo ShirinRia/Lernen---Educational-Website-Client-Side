@@ -42,7 +42,7 @@ const Dashboard = () => {
     console.log(isAdmin, isStudent)
 
     return (
-        <Container maxWidth='xl' sx={{ display: 'flex' }}>
+        <Container maxWidth='xl' sx={{ display: 'flex', flexDirection:{xs:'column',md:'row'} }}>
             {/* dashboard side bar */}
             <Box sx={{ minWidth: '250px', minHeight: '100vh', bgcolor: grey[600], color: 'white' }}>
                 <ul className="menu p-4">
@@ -115,7 +115,7 @@ const Dashboard = () => {
                 </ul>
             </Box>
             {/* dashboard content */}
-            <Box sx={{ py: 4, px: 8, flexGrow: 1, width: '100%' }}>
+            <Box sx={{ py: 4, px: 8, flexGrow: 1, width: {sx:'70%',md:'100%'} }}>
                 <Outlet></Outlet>
             </Box>
         </Container>

@@ -45,7 +45,7 @@ const Provider = ({ children }) => {
             setloading(false)
             if (currentuser) {
 
-                axiosPublic.post('http://localhost:5000/jwt', loggedinuser, { withCredentials: true },
+                axiosPublic.post('https://server-ruby-pi.vercel.app/jwt', loggedinuser, { withCredentials: true },
                 )
                     .then(res => {
                         console.log(res.data);
@@ -53,7 +53,7 @@ const Provider = ({ children }) => {
 
             }
             else {
-                axiosPublic.post('http://localhost:5000/logout', loggedinuser, { withCredentials: true },
+                axiosPublic.post('https://server-ruby-pi.vercel.app/logout', loggedinuser, { withCredentials: true },
                    
                 )
                     .then(res => {

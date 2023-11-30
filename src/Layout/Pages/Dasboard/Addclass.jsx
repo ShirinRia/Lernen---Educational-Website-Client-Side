@@ -139,6 +139,8 @@ const Addclass = () => {
                 <Box sx={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(2, 1fr)',
+                   
+                   
                     gap: 2,
                     alignItems: 'center',
 

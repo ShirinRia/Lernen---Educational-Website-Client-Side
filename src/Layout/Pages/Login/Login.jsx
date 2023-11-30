@@ -13,6 +13,7 @@ import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiospublic from "../../../Hooks/useAxios/useAxiospublic";
 import Sociallogin from "../../Components/SocialLogin/Sociallogin";
+import { Button } from "@mui/material";
 
   const useStyles = makeStyles((theme) => ({
    
@@ -21,7 +22,14 @@ import Sociallogin from "../../Components/SocialLogin/Sociallogin";
       textAlign: 'center',
       fontSize:'24px'
 
-    }
+    },
+    typo2: {
+        marginBottom: '16px',
+        textAlign: 'center',
+        fontSize: '16px'
+
+
+    },
   }));
 const Login = () => {
     const {signin,signgoogle}=  useAuth()
@@ -85,27 +93,28 @@ const Login = () => {
 const handlegoogle = () => {
     signgoogle()
         .then((result) => {
-
-            // The signed-in user info.
-            const user = result.user;
-            console.log(user)
-            const email = user.email
-            const olduser = {
-                email,
-                lastloggedat: user?.metadata?.lastSignInTime
-            }
-
-
-            axiosPublic.patch(url, olduser)
-                .then(response => {
-                    console.log(response);
-                    if (response.data.modifiedCount > 0) {
-                        Swal.fire({
-                            title: 'Sign In!',
-                            text: 'Sign In with google Successfully',
-                            icon: 'success',
-                            confirmButtonText: 'Explore'
-                        })
+             // The signed-in user info.
+             const user = result.user;
+             const email = user.email
+             const role = 'Student'
+             const name = user.displayName
+             let photo = user.photoURL
+            //  const createat = user.metadata.creationTime
+             const newuserdata = { name,role, email, photo,
+                //  createdAt: createat
+                 }
+             console.log(newuserdata);
+             axiosPublic.put(url, newuserdata)
+                 .then(function (response) {
+                     console.log(response);
+                     if (response.data.insertedId) {
+                         Swal.fire({
+                             title: 'Success!',
+                             text: 'Registered with email Successfully',
+                             icon: 'success',
+                             confirmButtonText: 'OK'
+                         })
+                       
                     }
                 })
 
@@ -138,7 +147,7 @@ const handlegoogle = () => {
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                       
+                     
                         alignItems: 'center',
                       
                         bgcolor: 'background.paper',
@@ -147,19 +156,19 @@ const handlegoogle = () => {
                     }}
                     >
                         
-                        <button onClick={handlegoogle}  style={{ marginBottom:"15px",marginTop:"25px", width:"50%", padding:'15px 0' }}> 
-                            <FcGoogle /> Continue with Google </button>
+                        <Button onClick={handlegoogle}  sx={{ marginBottom:"15px",marginTop:"25px", border:1,width: { xs: '100%', md: '50%' },padding:'15px 0' }}> 
+                            <FcGoogle />   Continue with Google </Button>
                         {/* register your input into the hook by invoking the "register" function */}
                         {/* <input defaultValue="test" {...register("example")} /> */}
                         <TextField
-                            style={{ padding: "0",marginBottom:"15px", width:"50%"   }}
+                            style={{ padding: "0",marginBottom:"15px", width: { xs: '100%', md: '50%' }   }}
                             label="Email"
                             variant="outlined"
                             {...register("email")}
                         />
                         {/* include validation with required or other standard HTML validation rules */}
                         <TextField
-                            style={{ padding: "0",marginBottom:"15px", width:"50%"  }}
+                            style={{ padding: "0",marginBottom:"15px", width:{xs:'100%', md: '100%' }  }}
                             label="Password"
                             variant="outlined"
                             {...register("password")}
@@ -169,19 +178,19 @@ const handlegoogle = () => {
                         {/* errors will return when field validation fails  */}
                         {errors.exampleRequired && <span>This field is required</span>}
                        
-                        <button
-                            style={{ padding: "15px 0px", width:"50%", background:"#dd33fa" , outline:'0' ,color:"white" }}
+                        <Button
+                            sx={{ padding: "15px 0px", width: { xs: '100%', md: '50%' }, background:"#dd33fa" , outline:'0' ,color:"white" }}
                            
                             // variant="outlined"
 
                             type="submit"
                            
-                        >Login</button>
+                        >Login</Button>
                     </Box>
 
                 </form>
                 <Divider style={{ padding: "15px 0px",marginBottom:"15px"}}/>
-               <Typography className={classes.typo}> Don't have an account?<Link to={'/signup'}>Sign up</Link></Typography> 
+               <Typography className={classes.typo2}> Don't have an account?<Link to={'/signup'}>Sign up</Link></Typography> 
             </Box>
          
         </Container>

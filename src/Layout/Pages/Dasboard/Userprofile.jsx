@@ -59,11 +59,12 @@ const Userprofile = () => {
                     variant="outlined"
                     value={thisuser?.role}
                 />
-                {/* <TextField
+                <TextField
                     style={{ padding: "0", marginBottom: "15px", width: "100%" }}
                     label="Phone Number"
                     variant="outlined"
-                /> */}
+                    value={thisuser?.phone}
+                />
 
             </Box>
         </Box>

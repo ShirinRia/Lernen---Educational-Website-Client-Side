@@ -1,11 +1,6 @@
-import { FcDeleteDatabase } from 'react-icons/fc';
-import { FaBan } from 'react-icons/fa';
-import { BiError } from 'react-icons/bi';
-import { BiUnlink } from 'react-icons/bi';
-import { SiProgress } from 'react-icons/si';
+
 import { TypeAnimation } from 'react-type-animation';
 import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
 
 const Errorpage = () => {
   return (

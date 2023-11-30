@@ -65,7 +65,7 @@ const Partners = () => {
             <Box sx={style}>
 
 
-                <Stack direction="row" spacing={2} sx={{ my: 4 }}>
+                <Stack direction="row"  sx={{ my: 4,display:'grid', gridTemplateColumns: {sm:'repeat(1, 1fr)', md:'repeat(6, 1fr)'}, gap:3 }}>
                     {partners.map(partner => <Item sx={{ width: '180px' }} key={partner.id}>
                         <Box sx={{ height: '100px' }}>
                             <img src={partner.logo} alt="" height={'100%'} width={'100%'} />

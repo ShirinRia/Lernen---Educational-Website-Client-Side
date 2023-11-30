@@ -3,6 +3,7 @@ import useAxiossecure from "../../../../Hooks/useAxios/useAxiossecure";
 import usePayment from "../../../../Hooks/usePayment";
 import Classcard from "../../Allclasses/Classcard";
 import useAuth from "../../../../Hooks/useAuth";
+import { Box } from "@mui/material";
 
 const Myenroll = () => {
 
@@ -21,11 +22,14 @@ const Myenroll = () => {
     });
 
     return (
-        <div>
+        <Box sx={{
+            mb:8,
+           display: 'grid', justifyContent: 'center', gridTemplateColumns: {sm:'repeat(1, 1fr)', md:'repeat(4, 1fr)'}, columnGap: 1,rowGap: 3,
+        }}> 
             {
                 userclasses.map(classe => <Classcard key={classe._id} classe={classe}></Classcard>)
             }
-        </div>
+        </Box > 
     );
 };
 

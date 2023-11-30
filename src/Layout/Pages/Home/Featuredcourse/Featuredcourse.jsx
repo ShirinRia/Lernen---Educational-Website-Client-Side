@@ -31,14 +31,14 @@ const Featuredcourse = () => {
             <Typography className={styleclasses.typo}>
                 Top Courses
             </Typography>
-            {/*             
-                <Box className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center max-w-6xl mx-auto my-16">
+                        
+                <Box sx={{ my: 4,display:'grid', gridTemplateColumns: {sm:'repeat(1, 1fr)', md:'repeat(3, 1fr)'}, gap:5 }} >
                     {
                         sortallclass.slice(0, length).map(classe => <Classcard key={classe._id}
                             classe={classe}></Classcard>)
                     }
-                </Box> */}
-            <Box sx={{ flexGrow: 1, my:4 }}>
+                </Box>
+            {/* <Box sx={{ flexGrow: 1, my:4 }}>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
 
                     
@@ -46,11 +46,11 @@ const Featuredcourse = () => {
                         <Grid item xs={2} sm={4} md={4} key={index}>
                             
                             <Classcard key={classe._id}
-                            classe={classe}></Classcard>
+                            classe={classe} featured={true}></Classcard>
                         </Grid>
                     ))}
                 </Grid>
-            </Box>
+            </Box> */}
 
         </Container>
     );

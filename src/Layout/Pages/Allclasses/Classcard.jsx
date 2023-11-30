@@ -97,7 +97,7 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-const Classcard = ({ classe, refetch, isallclassnav }) => {
+const Classcard = ({ classe, refetch, isallclassnav,featured }) => {
     const classes = useStyles();
     const {
         register,
@@ -196,7 +196,9 @@ const Classcard = ({ classe, refetch, isallclassnav }) => {
 
                 title={title}
                 subheader={name}
+              
             />
+            
             <CardMedia
                 component="img"
                 height="194"
@@ -213,13 +215,19 @@ const Classcard = ({ classe, refetch, isallclassnav }) => {
                 <Typography variant="body2" sx={{ mb: 2, fontWeight: 700, fontSize: '16px' }}>
                     $ {price}
                 </Typography>
+                <div>
                 <Typography variant="body2" sx={{ fontWeight: 400, fontSize: '14px' }}>
                     {status}
                 </Typography>
+                <Typography variant="body2" sx={{ fontWeight: 400, fontSize: '14px' }}>
+                  instructor Email :   {email}
+                </Typography>
+                </div>
+                
             </CardContent>
             <CardActions disableSpacing >
                 {
-                    isteacher & !isallclassnav ? <Box>
+                    isteacher & !isallclassnav & !featured ? <Box>
 
                         <Box sx={{ display: 'flex', gap: 1 }}>
                             <div >
@@ -309,11 +317,11 @@ const Classcard = ({ classe, refetch, isallclassnav }) => {
 
                     </Box>
                         : <div style={{ width: '100%', }}>
-                            {isstudent & !isallclassnav ?
+                            {isstudent & !isallclassnav ? 
                                 <Button variant="contained" sx={{ width: '100%' }} href={`/dashboard/myenrollclass/${_id}`}>Continue</Button>
                                 : <div style={{ width: '100%', }}>
                                     {
-                                        isallclassnav && <Button variant="contained" href={`/details/${_id}`} sx={{ width: '100%' }}>Enroll</Button>
+                                       ( isallclassnav || featured) && <Button variant="contained" href={`/details/${_id}`} sx={{ width: '100%' }}>Enroll</Button>
                                     }
                                 </div>
 

@@ -16,6 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiospublic from "../../../Hooks/useAxios/useAxiospublic";
 import useAuth from "../../../Hooks/useAuth";
 import { red } from "@mui/material/colors";
+import { useMutation } from "@tanstack/react-query";
 const grey = {
     50: '#F3F6F9',
     100: '#E5EAF2',
@@ -54,14 +55,36 @@ const Signup = () => {
     const axiosPublic = useAxiospublic()
     const classes = useStyles();
     const navigate = useNavigate()
+    const url = '/users'
+    const { createuser, signgoogle } = useAuth()
+    const mutation = useMutation({
+        mutationFn: (newTodo) => {
+          return   axiosPublic.post(url, newTodo)
+          .then(response => {
+              console.log(response);
+              if (response.data.insertedId) {
+                  reset()
+                  Swal.fire({
+                      title: 'Success!',
+                      text: 'Registered with email Successfully',
+                      icon: 'success',
+                      confirmButtonText: 'OK'
+                  })
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+              
+          });
+        },
+      })
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors },
     } = useForm()
-    const url = '/users'
-    const { createuser, signgoogle } = useAuth()
+  
     const onSubmit = async (data) => {
         console.log(data)
 
@@ -86,23 +109,7 @@ const Signup = () => {
                     .then(() => {
                         // Profile updated!
 
-
-                        axiosPublic.post(url, newuserdata)
-                            .then(response => {
-                                console.log(response);
-                                if (response.data.insertedId) {
-                                    reset()
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        text: 'Registered with email Successfully',
-                                        icon: 'success',
-                                        confirmButtonText: 'OK'
-                                    })
-                                }
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
+                        mutation.mutate(newuserdata)
 
                         navigate("/");
 
@@ -110,19 +117,32 @@ const Signup = () => {
                     .catch((error) => {
                         console.log(error)
                         // setregerror(error.message);
-                        // Swal.fire({
-                        //     title: `${error.message}`,
-                        //     showClass: {
-                        //         popup: 'animate__animated animate__fadeInDown'
-                        //     },
-                        //     hideClass: {
-                        //         popup: 'animate__animated animate__fadeOutUp'
-                        //     }
-                        // })
+                        Swal.fire({
+                            title: `${error.message}`,
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            }
+                        })
                     });
                 reset();
             }
             )
+            .catch((error) => {
+                console.log(error)
+                // setregerror(error.message);
+                Swal.fire({
+                    title: `${error.message}`,
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                })
+            });
     }
     // const handlegoogle = () => {
     //     signgoogle()
@@ -181,7 +201,7 @@ const Signup = () => {
                     >
                         {/* <button onClick={handlegoogle} style={{ marginBottom: "15px", width: "50%", padding: '15px 0' }}>
                             <FcGoogle /> Continue with Google </button> */}
-                        <Box sx={{ display: 'flex', width: '50%', gap: 2,marginBottom: "15px" }}>
+                        <Box sx={{ display: 'flex', width: '50%', gap: 2, marginBottom: "15px" }}>
                             <TextField
                                 style={{ padding: "0", width: "50%" }}
                                 label="Full Name"
@@ -219,15 +239,17 @@ const Signup = () => {
                             label="Password"
                             variant="outlined"
                             type="password"
-                            
-                            {...register("password", { required: true,  minLength: 6,
-                                maxLength: 20, pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/})}
+
+                            {...register("password", {
+                                required: true, minLength: 6,
+                                maxLength: 20, pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                            })}
                         />
                         {/* {errors.password && <span style={{ color: 'red', fontWeight: 600, marginBottom: '15px' }}>Password is required</span>} */}
                         {errors.password?.type === 'required' && <span style={{ color: 'red', fontWeight: 600, marginBottom: '15px' }}>Password is required</span>}
-                                {errors.password?.type === 'minLength' && <span  style={{ color: 'red', fontWeight: 600, marginBottom: '15px'}}>Password must be 6 characters</span>}
-                                {errors.password?.type === 'maxLength' && <span  style={{ color: 'red', fontWeight: 600, marginBottom: '15px'}}>Password must be less than 20 characters</span>}
-                                {errors.password?.type === 'pattern' && <span  style={{ color: 'red', fontWeight: 600, marginBottom: '15px'}}>Password must have one Uppercase one lower case, one number and one special character.</span>}
+                        {errors.password?.type === 'minLength' && <span style={{ color: 'red', fontWeight: 600, marginBottom: '15px' }}>Password must be 6 characters</span>}
+                        {errors.password?.type === 'maxLength' && <span style={{ color: 'red', fontWeight: 600, marginBottom: '15px' }}>Password must be less than 20 characters</span>}
+                        {errors.password?.type === 'pattern' && <span style={{ color: 'red', fontWeight: 600, marginBottom: '15px' }}>Password must have one Uppercase one lower case, one number and one special character.</span>}
 
                         <TextField
                             style={{ padding: "0", marginBottom: '15px', width: "50%" }}
@@ -247,7 +269,7 @@ const Signup = () => {
 
                         >Sign Up</button>
                     </Box>
-                  
+
 
                 </form>
                 <Divider style={{ padding: "5px 0px", marginBottom: "5px" }} />

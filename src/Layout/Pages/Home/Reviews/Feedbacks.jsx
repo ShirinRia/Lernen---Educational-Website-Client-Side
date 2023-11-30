@@ -15,6 +15,7 @@ import { Avatar, Box, Typography } from '@mui/material';
 
 const Feedbacks = () => {
     const [reviews, refetch] = useAllreview()
+    
     return (
 
         <Swiper
@@ -47,10 +48,15 @@ const Feedbacks = () => {
                                 halfIcon={<i className="fa fa-star-half-alt"></i>}
                                 fullIcon={<i className="fa fa-star"></i>}
                                 activeColor="#ffd700"
-                            /></div>
+                            />
+                            <Typography component="div" variant="h5">
+                                {review.title}
+                            </Typography>
+                            
+                            </div>
 
                     </Box>
-                    <Typography variant="subtitle1" color="darkblue" component="div" sx={{ mx: 12, my: 4, textAlign: 'center' }}>
+                    <Typography variant="subtitle1" color="darkblue" component="div" sx={{ mx: {xs:0, md:12}, my: 4, textAlign: 'center' }}>
                         {review.description}
                     </Typography>
                 </SwiperSlide>)
